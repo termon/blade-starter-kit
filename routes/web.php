@@ -9,7 +9,7 @@ Route::middleware('auth')->group(function () {
     Route::view('/about', 'about')->name('about');
     Route::view('/contact', 'contact')->name('contact');
  
-   Route::get("/edit", [UserController::class, "edit"])->name("edit");
+   Route::get("/edit", [UserController::class, "edit"])->name("user.edit");
     Route::put("/update", [UserController::class, "update"])->name("user.update");
 
     Route::post("/logout", [UserController::class, "logout"])->name("logout");

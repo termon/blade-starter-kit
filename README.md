@@ -1,22 +1,22 @@
 # Instructions
 
-This template can be installed using the `laravel` command as follows
+This template can be installed by cloning the repository from Github as follows
 
 ```
-laravel new my-app --using=termon/blade-starter-kit
+git clone https://github.com/termon/blade-starter-kit.git
 ```
 
-The `Tailwind 4` and  the `termon\ui` Blade UI kit  and `AlpineJS` for interactivity.
+1. Create a `.env` file by copying the template `.env.example` provided and modify as necessary. 
+2. Run migrations `php artisan migrate --seed`
+3. Run `composer update && npm install` 
+4. Finally run the application using `composer run dev`
 
-> `termon\ui` blade kit has been installed via the following repository configured in `composer.json`
-```
-"repositories": [
-    {
-        "type": "git",
-        "url": "https://github.com/termon/ui"
-    }
-],
-```
+### Notes
 
-### Optional
+The template has installed the `termon\ui` Blade UI kit  and `AlpineJS` for interactivity.
+
 The template also includes `Livewire` and `Volt` to allow creation/usage of Livewire components 
+
+The application provides two layouts `sidebar` (default) and `navbar`. To change the layout edit `views\components\layouts\app.blade.php`
+
+The `DatabaseSeeder` includes two default users `admin@mail.com` and `guest@mail.com` both with a default password of `password`.

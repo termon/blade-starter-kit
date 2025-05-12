@@ -16,7 +16,7 @@
         </x-ui::heading>
 
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('user.register') }}">
             @csrf
 
             <!-- name -->
@@ -40,9 +40,9 @@
             </div>
 
             <!-- submit -->
-            <div class="mt-4">
+            <div class="mt-4 flex justify-between">
                 <x-ui::button variant="dark" type="submit">Register</x-ui::button>
-                <x-ui::link variant="light" href="{{ route('home') }}">Cancel</x-ui::link>
+                <x-ui::link link="light" href="{{ route('login') }}" class="!text-blue-500">Login Here</x-ui::link>
             </div>
 
         </form>

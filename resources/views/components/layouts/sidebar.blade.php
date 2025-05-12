@@ -1,15 +1,7 @@
 <x-ui::sidebar>
 
     {{-- Sidebar header --}}
-    <x-slot:title>
-        {{-- <svg class="w-32 h-auto" viewBox="0 0 128 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Logo Icon Placeholder -->
-            <rect x="0" y="4" width="24" height="24" rx="4" fill="#E5E7EB" />
-
-            <!-- Title Lines -->
-            <rect x="32" y="8" width="80" height="4" rx="2" fill="#D1D5DB" />
-            <rect x="32" y="16" width="60" height="4" rx="2" fill="#D1D5DB" />
-        </svg> --}}
+    <x-slot:title>      
         <svg class="w-48 h-auto class="dark:text-gray-100" " viewBox="0 0 128 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Icon Circle -->
             <g transform="translate(0, 0)">
