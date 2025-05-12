@@ -1,18 +1,14 @@
 # Instructions
 
-## Install Livewire/Volt
+This template can be installed using the `laravel` command as follows
 
 ```
-composer require livewire/livewire
-composer require livewire/volt
-
-php artisan volt:install
+laravel new my-app --using=termon/blade-starter-kit
 ```
 
-## Install Termon UI
+The `Tailwind 4` and  the `termon\ui` Blade UI kit  and `AlpineJS` for interactivity.
 
-Add following to `composer.json`
-
+> `termon\ui` blade kit has been installed via the following repository configured in `composer.json`
 ```
 "repositories": [
     {
@@ -22,8 +18,5 @@ Add following to `composer.json`
 ],
 ```
 
-Then install 
-
-```
-composer require termon/ui
-```
+### Optional
+The template also includes `Livewire` and `Volt` to allow creation/usage of Livewire components 
