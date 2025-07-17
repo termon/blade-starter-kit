@@ -1,3 +1,4 @@
+
 <x-layouts.guest>
 
   <x-ui::card class="bg-white w-md md:w-3xl dark:bg-gray-800 shadow-lg p-6">
@@ -16,7 +17,7 @@
         </x-ui::heading>
 
 
-        <form method="POST" action="{{ route('user.register') }}">
+        <form method="POST" action="{{ route('register') }}">
             @csrf
 
             <!-- name -->
@@ -42,10 +43,15 @@
             <!-- submit -->
             <div class="mt-4 flex justify-between">
                 <x-ui::button variant="dark" type="submit">Register</x-ui::button>
-                <x-ui::link link="light" href="{{ route('login') }}" class="!text-blue-500">Login Here</x-ui::link>
+                 <div class="text-center mt-6">
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Already have an account?
+                    <x-ui::link link="light" href="{{ route('login') }}" class="!text-blue-600">Login Here</x-ui::link>
+                </p>
             </div>
 
         </form>
     </x-ui::card>
 
 </x-layouts.guest>
+

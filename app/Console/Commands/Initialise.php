@@ -29,7 +29,7 @@ class Initialise extends Command
     protected function artisanCommandExists(string $command): bool
     {
         return collect(Artisan::all())->has($command);
-    }    
+    }
 
     /**
      * Execute the console command.
@@ -41,7 +41,7 @@ class Initialise extends Command
         $this->call('view:clear', []);
         $this->call('route:clear', []);
         $this->call('event:clear', []);
-        $this->call('config:clear', []);      
+        $this->call('config:clear', []);
         $this->call('optimize:clear', []);
 
         // clear queues
@@ -51,7 +51,7 @@ class Initialise extends Command
         } else {
             $this->warn('queue:clear command not available. Skipping...');
         }
-     
+
         // clear auth reset tokens
         if ($this->artisanCommandExists('auth:clear-resets')) {
             $this->call('auth:clear-resets');
@@ -68,7 +68,7 @@ class Initialise extends Command
             $this->warn('debugbar:clear command not found. Skipping...');
         }
 
-        // run npm build 
+        // run npm build
         $this->buildAssets();
 
         // check if the user wants to delete the log file
@@ -101,7 +101,7 @@ class Initialise extends Command
     public function deleteLog()
     {
         if ($this->confirm('Do you want to delete the Laravel log file?', false)) {
-            
+
             $logPath = storage_path('logs/laravel.log');
             if (File::exists($logPath)) {
                 File::delete($logPath);
