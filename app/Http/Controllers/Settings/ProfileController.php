@@ -12,6 +12,12 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    public function show(Request $request): View
+    {
+        return view('settings.index', [
+            'user' => $request->user(),
+        ]);
+    }
     public function edit(Request $request): View
     {
         return view('settings.profile', [

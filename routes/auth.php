@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('settings', [ProfileController::class, 'show'])->name('settings.profile.show');
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('settings.profile.edit');
     Route::put('settings/profile', [ProfileController::class, 'update'])->name('settings.profile.update');
     Route::delete('settings/profile', [ProfileController::class, 'destroy'])->name('settings.profile.destroy');
