@@ -18,7 +18,7 @@ New to the starter kit? Begin with these essential guides:
 - Secure session management
 - Laravel Sanctum ready for API authentication
 
-### 🎨 **Termon/UI Component Library**
+### 🎨 **UI Component Library**
 - Professional Blade components with consistent design
 - Dark/light theme support with automatic switching
 - Responsive design patterns
@@ -26,8 +26,7 @@ New to the starter kit? Begin with these essential guides:
 - Comprehensive form elements and layouts
 
 ### ⚡ **Interactive Features**
-- **Livewire 3.0** - Full-page and component-level reactivity
-- **Volt** - Single-file Livewire components
+- **Livewire 4.0** - Full-page and component-level reactivity
 - **AlpineJS** - Lightweight frontend reactivity
 - Real-time updates and dynamic interfaces
 
@@ -48,9 +47,7 @@ New to the starter kit? Begin with these essential guides:
 
 This starter kit follows Laravel best practices with some enhancements:
 
-- **Class-based Components** - Complex components use classes for better organization
 - **Enum-based Roles** - Type-safe user roles with helper methods
-- **Volt Integration** - Modern single-file components where appropriate
 - **Blade Component Library** - Reusable UI components via termon/ui package
 
 ## Getting Help

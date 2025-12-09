@@ -14,14 +14,13 @@ The Laravel Blade Starter Kit provides a modern foundation for web applications:
 
 ### Core Technology Stack
 - **Laravel 12** - Latest Laravel framework with modern PHP features
-- **Termon/UI** - Professional Blade component library (v1.6.9)
+- **UI** - Blade component library
 - **Livewire 4.0** - Full-stack reactivity without writing JavaScript
 - **AlpineJS** - Minimal framework for interactive behavior
 - **Tailwind CSS** - Utility-first CSS framework with dark mode
 
 ### Built-in Features
 - **Complete Authentication** - Registration, login, password reset with role-based access
-- **Professional UI Components** - Pre-built components with accessibility support
 - **Help Documentation System** - Automatic markdown page discovery and navigation
 - **Development Tools** - Laravel Pail, Pint, and Vite for optimal developer experience
 - **SQLite Database** - Pre-configured with seeded users (easily changeable)
@@ -29,6 +28,7 @@ The Laravel Blade Starter Kit provides a modern foundation for web applications:
 ### User Roles & Authentication
 The starter kit includes three pre-configured user roles:
 - **Admin** (`admin@mail.com` / `password`) - Full system access
+- **User** (`user@mail.com` / `password`) - Full system access
 - **Guest** (`guest@mail.com` / `password`) - Limited access
 
 ## Prerequisites
@@ -45,7 +45,7 @@ Before you begin, ensure you have:
 
 1. **Install the application** following our installation guide
 2. **Configure your environment** with the configuration guide
-3. **Explore the UI components** using the termon/ui documentation
+3. **Explore the UI components** using the ui documentation
 4. **Create your first Livewire component** to see the reactivity in action
 
 ## Development Workflow

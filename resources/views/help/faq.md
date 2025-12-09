@@ -7,16 +7,16 @@ A modern Laravel application template that includes authentication, the termon/u
 
 ### What technologies are included?
 - **Laravel 12** - Latest Laravel framework
-- **Termon/UI Package** - Professional Blade component library
-- **Livewire 3.0** - Full-stack reactivity for Laravel
-- **Volt** - Single-file Livewire components
+- **ui** - Blade component library
+- **Livewire 4.0** - Full-stack reactivity for Laravel
 - **AlpineJS** - Minimal framework for interactive behavior
 - **Tailwind CSS** - Utility-first CSS framework
 - **SQLite** - Default database (easily changeable)
 
 ### What are the default login credentials?
-- **Admin**: `admin@mail.com` / `password`
-- **Guest**: `guest@mail.com` / `password`
+- **Admin**: `admin@mail.com` / `password` role `ADMIN`
+- **User**: `user@mail.com` / `password` role `USER`
+- **Guest**: `guest@mail.com` / `password` role `GUEST`
 
 These users are created automatically when you run `php artisan migrate --seed`.
 
@@ -33,7 +33,7 @@ Edit `resources/views/components/layouts/app.blade.php` and change the layout im
 3. Run `php artisan migrate --seed`
 
 ### How do I customize the theme colors?
-The termon/ui components use Tailwind CSS. You can:
+The ui components use Tailwind CSS. You can:
 1. Modify `tailwind.config.js` to extend the color palette
 2. Override component styles in your CSS
 3. Use Tailwind's built-in color utilities
@@ -56,16 +56,16 @@ Create `.md` files in `resources/views/help/` or subdirectories. The help system
 Use the termon/ui components as building blocks:
 ```blade
 <x-ui.card>
-    <x-ui.card.header>My Custom Component</x-ui.card.header>
-    <x-ui.card.body>
-        <!-- Your content -->
-    </x-ui.card.body>
+    <slot:header>Optional Header</slot:header>
+ 
+    <!-- Your content -->
+ 
+    <slot:footer>Optional Footer</slot:footer>
 </x-ui.card>
 ```
 
 ### How do I add Livewire components?
-1. **Traditional Livewire**: `php artisan make:livewire MyComponent`
-2. **Volt (single-file)**: Create a `.blade.php` file with `@volt` directive
+**Livewire 4**: `php artisan make:livewire MyComponent --sfc`
 
 ### How do I enable real-time features?
 The starter kit includes Livewire for real-time updates. For WebSocket support, consider:

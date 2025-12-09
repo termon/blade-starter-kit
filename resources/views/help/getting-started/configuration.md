@@ -48,4 +48,5 @@ The application supports both light and dark themes automatically based on user 
 
 Default users created by the seeder:
 - Admin: `admin@mail.com` / `password`
+- User: `user@mail.com` / `password`
 - Guest: `guest@mail.com` / `password`

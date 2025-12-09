@@ -13,10 +13,10 @@ git clone https://github.com/termon/blade-starter-kit.git
 
 ### Notes
 
-The template has installed the `termon\ui` Blade UI kit  and `AlpineJS` for interactivity.
+The template contains custom blade `ui` components and `AlpineJS` for interactivity.
 
-The template also includes `Livewire` and `Volt` to allow creation/usage of Livewire components 
+The template also includes `Livewire 4` to allow creation/usage of Livewire components 
 
 The application provides two layouts `sidebar` (default) and `navbar`. To change the layout edit `views\components\layouts\app.blade.php`
 
-The `DatabaseSeeder` includes two default users `admin@mail.com` and `guest@mail.com` both with a default password of `password`.
+The `DatabaseSeeder` includes three default accounts `admin@mail.com`, `user@mail.com` and `guest@mail.com` all with a default password of `password`.
