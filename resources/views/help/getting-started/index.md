@@ -15,8 +15,7 @@ The Laravel Blade Starter Kit provides a modern foundation for web applications:
 ### Core Technology Stack
 - **Laravel 12** - Latest Laravel framework with modern PHP features
 - **Termon/UI** - Professional Blade component library (v1.6.9)
-- **Livewire 3.0** - Full-stack reactivity without writing JavaScript
-- **Volt** - Single-file Livewire components for rapid development
+- **Livewire 4.0** - Full-stack reactivity without writing JavaScript
 - **AlpineJS** - Minimal framework for interactive behavior
 - **Tailwind CSS** - Utility-first CSS framework with dark mode
 
@@ -64,6 +63,13 @@ php artisan pail
 # Format code
 ./vendor/bin/pint
 ```
+
+Alternatively you can run the development server and vite server using
+```bash
+# Start Development
+composer run dev
+```
+
 
 ## Getting Help
 

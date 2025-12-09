@@ -16,7 +16,7 @@
 
 <!-- Breadcrumbs -->
 @if($showBreadcrumbs && $breadcrumbs)
-    <x-ui::breadcrumb :crumbs="$breadcrumbs" />
+    <x-ui.breadcrumb :crumbs="$breadcrumbs" />
 @endif
 
 <div class="flex flex-col lg:flex-row gap-2 min-h-screen {{ $class }}">

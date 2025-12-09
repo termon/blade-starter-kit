@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'role' => Role::GUEST //$this->faker->randomElement([Role::ADMIN, Role::GUEST])
+            'role' => $this->faker->randomElement([Role::GUEST, Role::USER])
         ];
     }
 

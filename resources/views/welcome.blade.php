@@ -3,14 +3,14 @@
 @auth
 
     <x-layouts.app>
-        <x-ui::breadcrumb :crumbs="[
+        <x-ui.breadcrumb :crumbs="[
             'Home' => '/',
         ]">   
-        </x-ui::breadcrumb>
+        </x-ui.breadcrumb>
         
-        <x-ui::header>
-            <x-ui::title>Home</x-ui::title>                           
-        </x-ui::header>
+        <x-ui.divider>
+            <x-ui.heading level="3">Home</x-ui.heading>                           
+        </x-ui.divider>
     
     </x-layouts.app>
 @endauth

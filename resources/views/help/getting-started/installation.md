@@ -33,9 +33,7 @@ composer install
 
 This installs all Laravel dependencies including:
 - Laravel 12 framework
-- Termon/UI component library
-- Livewire 3.0 and Volt
-- Laravel Sanctum for API authentication
+- Livewire 4.0 
 - Development tools (Pint, Pail)
 
 ### 3. Install JavaScript Dependencies
@@ -96,8 +94,9 @@ The application will be available at `http://localhost:8000`
 
 ### Default Login Credentials
 
-- **Admin User**: `admin@mail.com` / `password`
-- **Guest User**: `guest@mail.com` / `password`
+- **Admin Role**: `admin@mail.com` / `password`
+- **User Role**: `user@mail.com` / `password`
+- **Guest Role**: `guest@mail.com` / `password`
 
 ### Verify Installation
 
@@ -109,17 +108,11 @@ The application will be available at `http://localhost:8000`
 
 ### Development Tools
 
-Start these tools for optimal development experience:
+To run the server in devleopment mode run the following command. This runs the laravel server alongside the vite server.
 
 ```bash
-# Terminal 1: Laravel development server
-php artisan serve
-
-# Terminal 2: Asset compilation with hot reload
-npm run dev
-
-# Terminal 3: Real-time log viewing
-php artisan pail
+# Laravel development server
+composer run dev
 ```
 
 ## Alternative Database Setup

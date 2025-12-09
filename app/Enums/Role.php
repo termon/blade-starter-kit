@@ -9,6 +9,6 @@ enum Role: string
     use EnumOptions;
 
     case ADMIN = "admin";
-    case AUTHOR = "author";
+    case USER  = "user";
     case GUEST = "guest";
 }

@@ -22,7 +22,12 @@ class DatabaseSeeder extends Seeder
             'role' => Role::ADMIN
         ]);
 
-       
+        User::create([
+            'name' => 'User',
+            'email' => 'user@mail.com',
+            'password' => Hash::make('password'),
+            'role' => Role::USER
+        ]);
 
         User::create([
             'name' => 'Guest',
@@ -30,6 +35,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
             'role' => Role::GUEST
         ]);
+
+        User::factory(20)->create();
 
         $this->call([
            // other seeders

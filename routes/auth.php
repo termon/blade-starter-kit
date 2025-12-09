@@ -13,7 +13,7 @@ use App\Http\Controllers\Settings\{
     PasswordController, 
     ProfileController
 };
-
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
