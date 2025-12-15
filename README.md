@@ -1,6 +1,6 @@
 # Instructions
 
-This template can be installed by cloning the repository from Github as follows - where <app-name> is the name of the application you want to create.
+This template can be installed by cloning the repository from Github as follows, where `<app-name>` is the name of the application you want to create.
 
 ```
 git clone https://github.com/termon/blade-starter-kit.git <app-name>
