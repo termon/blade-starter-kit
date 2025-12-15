@@ -1,14 +1,16 @@
 # Instructions
 
-This template can be installed by cloning the repository from Github as follows
+This template can be installed by cloning the repository from Github as follows - where <app-name> is the name of the application you want to create.
 
 ```
-git clone https://github.com/termon/blade-starter-kit.git
+git clone https://github.com/termon/blade-starter-kit.git <app-name>
 ```
 
-1. Create a `.env` file by copying the template `.env.example` provided and modify as necessary. 
-2. Run migrations `php artisan migrate --seed`
-3. Run `composer update && npm install` 
+### Initialise Application
+
+1. Run `composer install && npm install` to install the php and vite dependencies.
+2. Create a `.env` file by copying the template `.env.example` provided and modify as necessary. 
+3. Run migrations `php artisan migrate:fresh --seed`
 4. Finally run the application using `composer run dev`
 
 ### Notes

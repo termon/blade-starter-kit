@@ -50,7 +50,7 @@
     // Activate the correct tab when the page is initialized
     toggleTabs();
 }"
-    class="flex flex-col gap-2 overflow-x-auto border-b border-neutral-300 dark:border-neutral-700">
+    class="flex flex-col gap-2 overflow-x-auto border-b pb-5 border-neutral-300 dark:border-neutral-700">
     <div class="mb-3" role="tablist">
         <template x-for="(tab, index) in tabHeadings" :key="index">
             <button x-text="tab" @click="switchTab(tab);"

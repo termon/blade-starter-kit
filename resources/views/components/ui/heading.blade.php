@@ -19,6 +19,6 @@
     };
 @endphp
 
-<{{ $tag }} {{ $attributes->class($classes . ' dark:text-gray-100') }}>
+<{{ $tag }} {{ $attributes->class([$classes, 'dark:text-gray-100']) }}>
     {{ $slot }}
 </{{ $tag }}>
