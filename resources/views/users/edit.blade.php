@@ -17,7 +17,7 @@
         </x-ui::heading>
 
 
-        <form method="POST" action="{{ route('users.update', $user->id) }}">
+        <form method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
             @csrf
 
             <!-- name -->
@@ -33,6 +33,10 @@
               <!-- role -->
             <div class="mt-2">
                 <x-ui::form.select-group label="Role" name="role" :options="\App\Enums\Role::options()" value="{{ old('role', $user->role) }}" />
+            </div>
+
+             <div class="mt-2">
+                <x-ui::form.input-group label="Avatar" name="avatar" type="file" accept="image/*" />
             </div>
 
             <!-- passwords -->

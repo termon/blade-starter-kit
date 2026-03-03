@@ -49,10 +49,11 @@ class UserController extends Controller
     public function update(Request $request, int $id)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'role' => 'required',
-            'password' => 'nullable|string|min:8',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $id],
+            'avatar' => ['nullable', 'image', 'max:2048'],
+            'role' => ['required'],
+            //'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::findOrFail($id);
