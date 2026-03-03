@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "653478e950cc183fc782b42139872a0d",
+    "content-hash": "26da25d33e95c765ae2acfa24eaf56bc",
     "packages": [
         {
             "name": "brick/math",
@@ -6131,6 +6131,36 @@
                 }
             ],
             "time": "2025-10-27T20:36:44+00:00"
+        },
+        {
+            "name": "termon/ui",
+            "version": "1.8.04",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/termon/ui",
+                "reference": "a1bca53a890c4ed69df3d3cd64ae297524a95c54"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Termon\\Ui\\TermonUiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Termon\\Ui\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "termon",
+                    "email": "a.mccaughey@ulster.ac.uk"
+                }
+            ],
+            "description": "Set of Blade View Components",
+            "time": "2026-03-01T13:32:28+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

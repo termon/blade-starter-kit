@@ -47,18 +47,6 @@ class AuthenticationSystemTest extends TestCase
         $this->assertEquals('admin', Auth::user()->role->value);
     }
 
-    public function test_author_role_functionality(): void
-    {
-        // Arrange
-        /** @var \App\Models\User $author */
-        $author = User::factory()->create(['role' => Role::AUTHOR]);
-        $this->actingAs($author);
-
-        // Act & Assert
-        $this->assertTrue(Auth::user()->role === Role::AUTHOR);
-        $this->assertEquals('author', Auth::user()->role->value);
-    }
-
     public function test_guest_role_functionality(): void
     {
         // Arrange
@@ -77,10 +65,10 @@ class AuthenticationSystemTest extends TestCase
         $options = Role::options();
         $this->assertIsArray($options);
         $this->assertArrayHasKey('admin', $options);
-        $this->assertArrayHasKey('author', $options);
+        $this->assertArrayHasKey('user', $options);
         $this->assertArrayHasKey('guest', $options);
         $this->assertEquals('ADMIN', $options['admin']);
-        $this->assertEquals('AUTHOR', $options['author']);
+        $this->assertEquals('USER', $options['user']);
         $this->assertEquals('GUEST', $options['guest']);
     }
 
@@ -90,7 +78,7 @@ class AuthenticationSystemTest extends TestCase
         $values = Role::values();
         $this->assertIsArray($values);
         $this->assertContains('admin', $values);
-        $this->assertContains('author', $values);
+        $this->assertContains('user', $values);
         $this->assertContains('guest', $values);
         $this->assertCount(3, $values);
     }

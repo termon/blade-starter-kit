@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Role;
+use App\Traits\FileUpload;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,6 +37,10 @@ use Mirror\Concerns\Impersonatable;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User search($search)
+ * @property string|null $avatar
+ * @property-read array $config_for
+ * @property-read string $default_file
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAvatar($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -43,6 +48,19 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
     use Impersonatable;
+    use FileUpload;
+
+    /**
+     * return fileupload configuration
+     * 
+     * @return array 
+     */
+    protected function fileUploads(): array
+    {
+        return [
+            'avatar' => [ 'as_base64' => true ],
+        ];
+    }
  
     public function canImpersonate(): bool
     {       
@@ -64,7 +82,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'avatar'
     ];
 
     /**

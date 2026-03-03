@@ -188,24 +188,4 @@ class LoginControllerTest extends TestCase
         $response->assertRedirect(route('home'));
     }
 
-    public function test_author_user_can_login(): void
-    {
-        // Arrange
-        $author = User::factory()->create([
-            'email' => 'author@example.com',
-            'password' => Hash::make('password'),
-            'role' => Role::AUTHOR,
-        ]);
-
-        // Act
-        $response = $this->post(route('login'), [
-            'email' => 'author@example.com',
-            'password' => 'password',
-        ]);
-
-        // Assert
-        $this->assertAuthenticated();
-        $this->assertEquals(Role::AUTHOR, Auth::user()->role);
-        $response->assertRedirect(route('home'));
-    }
 }

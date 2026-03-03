@@ -5,6 +5,7 @@ namespace Tests\Feature\Auth;
 use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -45,6 +46,27 @@ class RegistrationControllerTest extends TestCase
         $this->assertEquals('test@example.com', $user->email);
         $this->assertTrue(Hash::check('password123', $user->password));
         $this->assertEquals(Role::GUEST, $user->role); // Default role should be guest
+    }
+
+    public function test_new_users_can_register_with_an_avatar(): void
+    {
+        $response = $this->post(route('register'), [
+            'name' => 'Avatar User',
+            'email' => 'avatar@example.com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+            'avatar' => UploadedFile::fake()->image('avatar.jpg'),
+        ]);
+
+        $response->assertRedirect(route('home'));
+        $this->assertAuthenticated();
+
+        $user = User::where('email', 'avatar@example.com')->first();
+
+        $this->assertNotNull($user);
+        $this->assertStringStartsWith('data:image/', (string) $user->avatar);
+        $this->assertTrue($user->avatar_exists);
+        $this->assertTrue($user->avatar_is_image);
     }
 
     public function test_registration_requires_name(): void
