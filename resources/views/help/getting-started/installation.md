@@ -8,7 +8,7 @@ Ensure you have the following installed:
 
 - **PHP 8.3+** - Required for Laravel 12 and modern features
 - **Composer** - PHP dependency manager
-- **Node.js 18+** - For asset compilation and frontend tooling
+- **Node.js 24+** - For asset compilation and frontend tooling
 - **npm or yarn** - Package manager for JavaScript dependencies
 - **Git** - Version control system
 - **Web Server** - Apache, Nginx, or use Laravel's built-in development server
@@ -72,23 +72,22 @@ This creates:
 - Cache and job tables  
 - Two demo users (admin@mail.com and guest@mail.com)
 
-### 6. Build Assets
+
+### 6. Start the Development Server
 
 ```bash
-# For development (with hot reload)
-npm run dev
-
-# For production
-npm run build
-```
-
-### 7. Start the Development Server
-
-```bash
-php artisan serve
+composer run deve
 ```
 
 The application will be available at `http://localhost:8000`
+
+### 7. Pre-Installation - Build Assets
+Run the following command shouls be run before deploying the applicatioj to production
+
+```bash
+# For production
+npm run build
+```
 
 ## Post-Installation
 
@@ -108,7 +107,7 @@ The application will be available at `http://localhost:8000`
 
 ### Development Tools
 
-To run the server in devleopment mode run the following command. This runs the laravel server alongside the vite server.
+To run the server in devleopment mode run the following command.
 
 ```bash
 # Laravel development server
@@ -141,6 +140,11 @@ php artisan migrate --seed
 **Permission errors**: Ensure `storage/` and `bootstrap/cache/` are writable
 ```bash
 chmod -R 775 storage bootstrap/cache
+```
+
+**Storage 404 errors**: Ensure the `storage/` folder has been linked to the `public/` folder by running following artisan command.
+```bash
+php artisan storage:link
 ```
 
 **Asset compilation fails**: Clear npm cache and reinstall

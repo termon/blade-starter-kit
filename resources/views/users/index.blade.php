@@ -48,6 +48,6 @@
         </x-slot:tbody>
     </x-ui::table>
 
-    <x-ui::paginator :items="$users" />
+    <x-ui::paginator :items="$users" class="mt-4"/>
 
 </x-layouts.app>

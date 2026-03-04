@@ -35,16 +35,14 @@
                 <x-ui::form.select-group label="Role" name="role" :options="\App\Enums\Role::options()" value="{{ old('role', $user->role) }}" />
             </div>
 
-             <div class="mt-2">
+             <div class="mt-2 flex justify-between">
                 <x-ui::form.input-group label="Avatar" name="avatar" type="file" accept="image/*" />
+                <img src="{{ $user->avatar_url }}" class="w-24 rounded"/>
             </div>
 
-            <!-- passwords -->
-            {{-- <div class="flex gap-2 mt-2">
-                <div class="w-full">
-                    <x-ui::form.input label="Password" name="password" type="password" value="{{ old('password', $user->password) }}" />
-                </div>
-
+            <!-- password -->
+            {{-- <div class="flex gap-2  <div class="w-full">
+                <x-ui::form.input label="Password" name="password" type="password" value="{{ old('password', $user->password) }}" />
             </div> --}}
 
             <!-- submit -->

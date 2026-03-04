@@ -83,8 +83,12 @@ class UserController extends Controller
 
     public function stop()
     {
-        Mirror::stop();
+        if (Mirror::isImpersonating())
+        {
+            Mirror::stop();
+            return redirect()->route('home')->with('success', 'Impersonation ended.');
+        }
 
-        return redirect()->route('home')->with('success', 'Impersonation ended.');
+        return redirect()->route('home')->with('info', 'You are currently not impersonating anyone');
     }
 }
