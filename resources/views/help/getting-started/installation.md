@@ -19,7 +19,7 @@ Ensure you have the following installed:
 
 ```bash
 # If using Git
-git clone <your-repository-url> my-project
+git clone https://github.com/termon/blade-starter-kit my-project
 cd my-project
 
 # Or download and extract the project files
