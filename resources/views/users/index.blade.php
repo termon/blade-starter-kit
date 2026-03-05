@@ -20,7 +20,9 @@
                 <x-ui::table.th>
                     <x-ui::link-sort name="email">Email</x-ui::link-sort>
                 </x-ui::table.th>
-                <x-ui::table.th>Role</x-ui::table.th>
+                <x-ui::table.th>
+                    <x-ui::link-sort name="role">Role</x-ui::link-sort>
+                </x-ui::table.th>
                 <x-ui::table.th>Actions</x-ui::table.th>
             </x-ui::table.tr>
         </x-slot:thead>

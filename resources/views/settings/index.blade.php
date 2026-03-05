@@ -1,3 +1,5 @@
+<!-- This tab view could be used to replace all other existing views in the settings folder -->
+
 <x-layouts.app>
     <x-ui::breadcrumb :crumbs="[
         'Home' => route('home'),
@@ -71,15 +73,15 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-4">
-                            <x-ui::form.input label="Current Password" name="current_password" type="password" />
+                            <x-ui::form.input-group label="Current Password" name="current_password" type="password" />
                         </div>
 
                         <div class="mb-6">
-                            <x-ui::form.input label="New Password" name="password" type="password" />
+                            <x-ui::form.input-group label="New Password" name="password" type="password" />
                         </div>
 
                         <div class="mb-6">
-                            <x-ui::form.input label="Confirm Password" name="password_confirmation" type="password" />
+                            <x-ui::form.input-group label="Confirm Password" name="password_confirmation" type="password" />
                         </div>
 
                         <div>

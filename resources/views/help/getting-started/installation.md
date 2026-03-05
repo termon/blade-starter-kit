@@ -76,16 +76,15 @@ This creates:
 ### 6. Start the Development Server
 
 ```bash
-composer run deve
+composer run dev
 ```
 
 The application will be available at `http://localhost:8000`
 
 ### 7. Pre-Installation - Build Assets
-Run the following command shouls be run before deploying the applicatioj to production
+Run the following command should be run before deploying the application to production
 
 ```bash
-# For production
 npm run build
 ```
 
