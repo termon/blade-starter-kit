@@ -67,6 +67,21 @@ Use the termon/ui components as building blocks:
 ### How do I add Livewire components?
 **Livewire 4**: `php artisan make:livewire MyComponent --sfc`
 
+### How do I reconfigure Laravel Boost?
+Boost is installed as `laravel/boost` in `require-dev` and was set up with `php artisan boost:install`.
+
+To adjust the current setup:
+
+1. Edit `opencode.json` to change how the local MCP server is started
+2. Review `CLAUDE.md` and `AGENTS.md` to update the generated Boost guidance for AI tools
+3. Run `php artisan boost:install` again if you want to regenerate the default integration files
+
+The current MCP command is:
+
+```json
+"command": ["php", "artisan", "boost:mcp"]
+```
+
 ### How do I enable real-time features?
 The starter kit includes Livewire for real-time updates. For WebSocket support, consider:
 - Laravel Reverb (included in Laravel 11+)
