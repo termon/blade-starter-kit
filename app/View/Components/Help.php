@@ -176,6 +176,8 @@ class Help extends Component
         // Generate title from filename
         $filename = $file->getFilenameWithoutExtension();
         $title = Str::title(str_replace('-', ' ', $filename));
+        $isFeaturePage = $file->getRelativePath() !== '';
+        $description = $this->extractPageDescription($file->getPathname());
 
         // Special handling for index files
         if ($filename === 'index') {
@@ -185,8 +187,10 @@ class Help extends Component
                 $title = Str::title(str_replace('-', ' ', $directoryName)) . ' Overview';
             } else {
                 // For root index file
-                $title = 'Overview';
+                $title = 'Starter Kit';
             }
+        } elseif ($slug === 'help-docs') {
+            $title = 'Help System';
         }
 
         // Determine folder and category
@@ -204,7 +208,27 @@ class Help extends Component
             'title' => $title,
             'folder' => $folder,
             'category' => $category,
+            'description' => $description,
+            'kind' => $isFeaturePage ? 'Feature' : 'Guide',
         ];
+    }
+
+    protected function extractPageDescription(string $path): string
+    {
+        $markdown = trim(File::get($path));
+        $paragraphs = preg_split("/\R{2,}/", $markdown) ?: [];
+
+        foreach ($paragraphs as $paragraph) {
+            $line = trim($paragraph);
+
+            if ($line === '' || str_starts_with($line, '#') || str_starts_with($line, '- ') || str_starts_with($line, '```')) {
+                continue;
+            }
+
+            return Str::limit(preg_replace('/\s+/', ' ', $line) ?? '', 140);
+        }
+
+        return 'Open this page for details.';
     }
 
     protected function groupAndSortPages(array $pages)

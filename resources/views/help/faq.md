@@ -6,11 +6,11 @@
 A modern Laravel application template that includes authentication, the termon/ui component library, Livewire/Volt for interactivity, and a complete help documentation system. It's designed to accelerate development of professional web applications.
 
 ### What technologies are included?
-- **Laravel 12** - Latest Laravel framework
+- **Laravel 13.x** - Latest Laravel framework
 - **ui** - Blade component library
-- **Livewire 4.0** - Full-stack reactivity for Laravel
+- **Livewire 4.x** - Full-stack reactivity for Laravel
 - **AlpineJS** - Minimal framework for interactive behavior
-- **Tailwind CSS** - Utility-first CSS framework
+- **Tailwind CSS 4.x** - Utility-first CSS framework
 - **SQLite** - Default database (easily changeable)
 
 ### What are the default login credentials?

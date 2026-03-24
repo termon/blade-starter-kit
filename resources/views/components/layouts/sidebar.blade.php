@@ -25,9 +25,11 @@
     <x-slot:navigation>
          <x-ui::sidebar.link href="/" icon="home" label="Home" />
 
-        <x-ui::sidebar.dropdown label="Company" icon="folder">
+        <x-ui::sidebar.dropdown label="Information" icon="folder">
             <x-ui::sidebar.link href="/about" icon="info" label="About Us" />
              <x-ui::sidebar.link href="/contact" icon="mail" label="Contact Us" />
+             <x-ui::sidebar.link href="/ui-demo" icon="camera" label="UI Demo" />
+             
         </x-ui::sidebar.dropdown>
         @can('view', App\Models\User::class)
             <x-ui::sidebar.link href="{{ route('users.index') }}" icon="user" label="Users" />

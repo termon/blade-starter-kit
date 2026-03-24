@@ -23,58 +23,94 @@
 
     @if($showPagesList)
         <!-- Help Pages List View -->
-        <div class="mt-2 w-full">
-            <div class="prose-sm prose-slate dark:prose-invert">
-                <h1 class="text-3xl font-bold text-blue-900 dark:text-blue-200 mb-6">Help & Documentation</h1>
-                
-                @if($availablePages->count() > 0)
-                    @foreach($availablePages as $category => $categoryPages)
-                        <div class="mb-8">
-                            <!-- Category Header -->
-                            <div class="mb-4 pb-2 border-b-2 border-blue-200 dark:border-blue-700">
-                                <h2 class="text-xl font-bold text-blue-900 dark:text-blue-200 flex items-center">
-                                    @if($category === 'General Documentation')
-                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                        </svg>
-                                    @else
-                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
-                                        </svg>
-                                    @endif
-                                    {{ $category }}
-                                    <span class="ml-2 text-sm font-normal text-gray-500 dark:text-gray-400">({{ $categoryPages->count() }} {{ Str::plural('page', $categoryPages->count()) }})</span>
-                                </h2>
-                            </div>
-                            
-                            <!-- Category Pages Grid -->
-                            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                                @foreach($categoryPages as $helpPage)
-                                    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
-                                        <h3 class="text-lg font-semibold text-blue-900 dark:text-blue-200 mb-2">
-                                            {{ $helpPage['title'] }}
-                                        </h3>
-                                        <a href="{{ route('help', ['page' => $helpPage['slug']]) }}" 
-                                           class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
-                                            Read more
-                                            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                @endforeach
-                            </div>
+        <div class="mt-2 w-full space-y-8">
+            <section class="rounded-2xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-blue-50 px-6 py-8 shadow-sm dark:border-slate-800 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800">
+                <div class="max-w-3xl">
+                    <p class="text-xs font-semibold uppercase tracking-[0.24em] text-blue-700 dark:text-blue-300">Documentation</p>
+                    <h1 class="mt-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Help & Documentation</h1>
+                    <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                        Start with the three core help pages, then use feature notes for implementation-specific details.
+                    </p>
+                </div>
+            </section>
+
+            @php
+                $rootPages = $availablePages->get('General Documentation', collect())->sortBy(fn ($page) => match ($page['slug']) {
+                    'index' => 0,
+                    'faq' => 1,
+                    'help-docs' => 2,
+                    default => 3,
+                });
+                $featureGroups = $availablePages->except('General Documentation');
+            @endphp
+
+            @if($rootPages->count() > 0)
+                <section>
+                    <div class="mb-4 flex items-center justify-between">
+                        <div>
+                            <h2 class="text-xl font-semibold text-slate-900 dark:text-slate-100">Core Pages</h2>
+                            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Project overview, starter-kit usage, and help-system notes.</p>
                         </div>
-                    @endforeach
-                @else
-                    <div class="text-center py-12">
+                    </div>
+
+                    <div class="grid gap-4 lg:grid-cols-3">
+                        @foreach($rootPages as $helpPage)
+                            <article class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-500">
+                                <div class="flex items-center justify-between">
+                                    <span class="inline-flex rounded-full bg-blue-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-blue-700 dark:bg-blue-950/60 dark:text-blue-200">
+                                        {{ $helpPage['kind'] }}
+                                    </span>
+                                    <svg class="h-5 w-5 text-slate-300 transition group-hover:text-blue-500 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-slate-100">{{ $helpPage['title'] }}</h3>
+                                <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ $helpPage['description'] }}</p>
+                                <a href="{{ route('help', ['page' => $helpPage['slug']]) }}" class="mt-5 inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-900 dark:text-blue-300 dark:hover:text-blue-200">
+                                    Open page
+                                </a>
+                            </article>
+                        @endforeach
+                    </div>
+                </section>
+            @endif
+
+            @if($featureGroups->count() > 0)
+                @foreach($featureGroups as $category => $categoryPages)
+                    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                        <div class="mb-5 flex items-center justify-between gap-4 border-b border-slate-200 pb-4 dark:border-slate-800">
+                            <div>
+                                <h2 class="text-xl font-semibold text-slate-900 dark:text-slate-100">{{ $category }}</h2>
+                                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $categoryPages->count() }} {{ Str::plural('page', $categoryPages->count()) }}</p>
+                            </div>
+                            <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                                Feature Notes
+                            </span>
+                        </div>
+
+                        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                            @foreach($categoryPages as $helpPage)
+                                <article class="rounded-xl border border-slate-200/80 bg-slate-50 p-5 transition hover:border-blue-300 hover:bg-blue-50/60 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-blue-500 dark:hover:bg-slate-950">
+                                    <h3 class="text-base font-semibold text-slate-900 dark:text-slate-100">{{ $helpPage['title'] }}</h3>
+                                    <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ $helpPage['description'] }}</p>
+                                    <a href="{{ route('help', ['page' => $helpPage['slug']]) }}" class="mt-4 inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-900 dark:text-blue-300 dark:hover:text-blue-200">
+                                        Open page
+                                    </a>
+                                </article>
+                            @endforeach
+                        </div>
+                    </section>
+                @endforeach
+            @endif
+
+            @if($availablePages->count() === 0)
+                <div class="text-center py-12">
                         <div class="text-gray-500 dark:text-gray-400">
                             <h3 class="text-lg font-medium mb-2">No help pages found</h3>
                             <p>No help documentation is currently available.</p>
                         </div>
-                    </div>
-                @endif
-            </div>
+                </div>
+            @endif
         </div>
     @else
         <!-- Single Page Content View -->
@@ -87,7 +123,7 @@
             <aside class="{{ $sidebarClass }}" aria-label="HelpSidebar">
                 
                 <!-- Available Pages -->
-                @if($showPageLinks && $availablePages->flatten()->count() > 1)
+                @if($showPageLinks && $availablePages->sum(fn ($categoryPages) => $categoryPages->count()) > 1)
                     <div class="mb-6">
                         <span class="text-blue-900 dark:text-blue-200 font-bold">Help Pages</span>
                         <ul class="px-1 mt-2">
@@ -123,7 +159,7 @@
                                     };
                                     $css = $heading['tag'] === 'h2' ? 'font-bold' : '';
                                 @endphp
-                                <li class="text-sm ml-{{ $indent }} py-1 rounded hover:bg-gray-200 dark:text-slate-100 dark:hover:bg-gray-800 {{ $css }}">
+                                <li class="text-sm {{ match ($indent) { 1 => 'ml-1', 2 => 'ml-2', 3 => 'ml-3', 4 => 'ml-4', default => 'ml-1' } }} py-1 rounded hover:bg-gray-200 dark:text-slate-100 dark:hover:bg-gray-800 {{ $css }}">
                                     <a href="#{{ $heading['id'] }}">{{ $heading['text'] }}</a>
                                 </li>
                             @endforeach

@@ -1,5 +1,3 @@
-
-
 @auth
 
     <x-layouts.app>
