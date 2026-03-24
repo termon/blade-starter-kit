@@ -9,7 +9,6 @@ Route::middleware('auth')->group(function () {
     Route::view('/', 'welcome')->name('home');
     Route::view('/about', 'about')->name('about');
     Route::view('/contact', 'contact')->name('contact');
-    Route::view('/ui-demo', 'ui-demo' )->name('ui-demo');
     Route::get('/help', [HelpController::class, 'index'])->name('help');
 });
 
@@ -29,3 +28,5 @@ Route::middleware('guest')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+require __DIR__.'/ui-demo.php';
