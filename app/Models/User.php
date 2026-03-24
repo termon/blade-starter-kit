@@ -5,10 +5,10 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Role;
 use App\Traits\FileUpload;
+use App\Traits\Searchable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Hash;
 use Mirror\Concerns\Impersonatable;
 
 /**
@@ -49,6 +49,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     use Impersonatable;
     use FileUpload;
+    use Searchable;
 
     /**
      * return fileupload configuration
@@ -110,20 +111,4 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Scope a query to search users by name or email.
-     *
-     * @param mixed $query 
-     * @param mixed $search 
-     * @return mixed 
-     */
-    public function scopeSearch($query, $search)
-    {
-        if (empty($search)) {
-            return $query;
-        }
-        return $query->where('name', 'like', "%{$search}%")
-                     ->orWhere('email', 'like', "%{$search}%")
-                     ->orWhere('role', 'like', "%{$search}%");
-    }
 }

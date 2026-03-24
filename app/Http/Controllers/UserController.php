@@ -15,10 +15,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $sort = $request->get('sort', 'id');
-        $direction = $request->get('direction', 'asc');
-        $search = $request->get('search', '');
-        $size = $request->get('size', 10);
+        $sort = $request->input('sort', 'id');
+        $direction = $request->input('direction', 'asc');
+        $search = $request->input('search', '');
+        $size = $request->input('size', 10);
 
         if (Gate::denies('view', User::class)) {
             // not authorised so redirect and display message
@@ -26,7 +26,7 @@ class UserController extends Controller
                 ->with('error', 'You are not authorized to view users.');
         }
 
-        $users = User::search($search)
+        $users = User::search($search, ['name', 'email', 'role'])
             ->orderBy($sort, $direction)
             ->paginate($size)
             ->withQueryString();
