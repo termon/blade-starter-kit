@@ -12,9 +12,9 @@
    <body class="text-sm">
       <!-- choose the layout style -->
       <x-ui::flash position="bottom-right" />
-      <x-layouts.sidebar>  
+      <x-layouts.navbar>  
             {{ $slot }}            
-      </x-layouts.sidebar>
+      </x-layouts.navbar>
     
       @livewireScripts
       

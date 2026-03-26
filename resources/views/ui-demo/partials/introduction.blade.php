@@ -1,7 +1,6 @@
 <x-ui::card>
     <x-ui::header>
         <x-ui::title size="lg">Using this demo</x-ui::title>
-        <x-ui::link variant="oblue" href="{{ route('help') }}" icon="info">Open Help</x-ui::link>
     </x-ui::header>
 
     <div class="space-y-4 text-sm text-slate-600 dark:text-slate-300">

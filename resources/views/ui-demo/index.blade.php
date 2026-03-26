@@ -90,16 +90,11 @@ BLADE;
         </x-ui::divider>
 
         <x-ui::hero
-            heading="termon/ui Component Catalogue"
+            heading="termon/ui Component Library"
             subheading="A practical demo of the package components currently installed in this starter kit."
             class="mb-6"
         >
-            <div class="mt-4 flex flex-wrap gap-2">
-                <x-ui::badge variant="blue">Tailwind 4</x-ui::badge>
-                <x-ui::badge variant="green">Blade Components</x-ui::badge>
-                <x-ui::badge variant="purple">Charts</x-ui::badge>
-                <x-ui::badge variant="yellow">Alpine Powered</x-ui::badge>
-            </div>
+        <span>Blade components developed using <x-ui::link target="_blank" href="https://tailwindcss.com">Tailwind</x-ui::link> and <x-ui::link target="_blank" href="https://alpinejs.dev">AlpineJS</x-ui::link></span>
         </x-ui::hero>
 
         <x-ui::tabs active="Introduction">

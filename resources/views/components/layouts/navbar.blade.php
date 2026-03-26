@@ -19,38 +19,41 @@
         </span>
     </x-slot:brand-title>
 
+    {{-- Top Navbar --}}
     <x-slot:navigation>
         <x-ui::navbar.link href="/" icon="home" label="Home" />
-
-         <x-ui::navbar.dropdown label="Company" icon="folder">
+       
+        <x-ui::navbar.dropdown label="Information" icon="folder">
+            @can('view', App\Models\User::class)
+                <x-ui::navbar.link href="{{ route('users.index') }}" icon="user" label="Users" />
+            @endcan
+            <x-ui::navbar.link label="UI Demo" :href="route('ui-demo')" icon="chart" />
             <x-ui::navbar.link href="/about" icon="info" label="About Us" />
-             <x-ui::navbar.link href="/contact" icon="info" label="Contact Us" />
+             <x-ui::navbar.link href="/contact" icon="envelope" label="Contact Us" />
         </x-ui::navbar.dropdown>
-
     </x-slot:navigation>
 
-    <x-slot:user>
-        @guest
-            <x-ui::navbar.link icon="user" href="{{ route('login') }}" label="Login" />
-        @endguest
+    {{-- Top Right Navbar (optional) --}}
+    <x-slot:right>
         @auth
             <x-ui::navbar.dropdown label="{{ auth()->user()->name }}" icon="user">
                 <x-ui::navbar.link label="Help" :href="route('help')" icon="info" />
-                {{-- <x-ui::navbar.link @click="dark = !dark" icon="moon" label="Toggle" /> --}}
                 <x-ui::navbar.link icon="cog" label="Profile" href="/settings/profile" />       
-                <x-ui::navbar.form-link action="/logout" icon="arrow-left-end-on-rectangle" method="post" label="Logout" />
+                <x-ui::navbar.form-link action="/logout" icon="arrow-left" method="post" label="Logout" />
             </x-ui::navbar.dropdown>
         @endauth
-    </x-slot:user>
+    </x-slot:right>
 
-    <x-ui::flash position="bottom-right" />
-
-    {{-- content slot --}}
-    {{ $slot }}
-
+    {{-- Bottom Toolbar --}}
     <x-slot:toolbar>
-        <x-ui::navbar.link href="/settings/profile" icon="user" />
         <x-ui::navbar.link @click="dark = !dark" icon="moon" />
         <x-ui::navbar.link :href="route('help')" icon="info" />
+        @impersonating
+            <x-ui::navbar.link class="text-red-600 font-bold" icon="exit" href="{{ route('users.mirror.stop') }}" />
+        @endimpersonating
     </x-slot:toolbar>
 </x-ui::navbar>
+
+<main class="min-h-screen bg-white px-4 py-20 mx-auto  text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+    {{ $slot }}
+</main>

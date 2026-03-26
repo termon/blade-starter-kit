@@ -30,10 +30,7 @@
              <x-ui::sidebar.link href="/contact" icon="mail" label="Contact Us" />
              <x-ui::sidebar.link href="/ui-demo" icon="camera" label="UI Demo" />
              
-        </x-ui::sidebar.dropdown>
-        @can('view', App\Models\User::class)
-            <x-ui::sidebar.link href="{{ route('users.index') }}" icon="user" label="Users" />
-        @endcan
+        </x-ui::sidebar.dropdown>      
     </x-slot:navigation>
 
     {{-- Secondary Navigation (Optional) --}}
@@ -47,8 +44,11 @@
         @guest
             <x-ui::sidebar.link icon="user" href="{{ route('login') }}" label="Login" />
         @endguest
-        @auth
-            <x-ui::sidebar.dropdown label="{{ auth()->user()->name }}" icon="user">                      
+        @auth         
+            <x-ui::sidebar.dropdown label="{{ auth()->user()->name }}" icon="user">  
+                @can('view', App\Models\User::class)
+                    <x-ui::sidebar.link href="{{ route('users.index') }}" icon="user" label="Users" />
+                @endcan                    
                 <x-ui::sidebar.link icon="cog" label="Profile" href="/settings/profile" />
                 <x-ui::sidebar.form-link :action="route('logout')" icon="exit" method="post" label="Logout" />
             </x-ui::sidebar.dropdown>           
@@ -57,7 +57,6 @@
 
     {{-- Toolbar --}}
     <x-slot:toolbar>
-
         <x-ui::sidebar.link @click="dark = !dark" icon="moon" />
         <x-ui::sidebar.link :href="route('help')" icon="info" />
         @impersonating

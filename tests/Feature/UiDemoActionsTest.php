@@ -19,6 +19,7 @@ class UiDemoActionsTest extends TestCase
 
     public function test_ui_demo_preview_post_redirects_back_with_success_flash(): void
     {
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post(route('ui-demo.preview.post'));
@@ -30,6 +31,7 @@ class UiDemoActionsTest extends TestCase
 
     public function test_ui_demo_preview_patch_redirects_back_with_status_flash(): void
     {
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->patch(route('ui-demo.preview.patch'));
@@ -41,6 +43,7 @@ class UiDemoActionsTest extends TestCase
 
     public function test_ui_demo_preview_delete_redirects_back_with_warning_flash(): void
     {
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->delete(route('ui-demo.preview.delete'));

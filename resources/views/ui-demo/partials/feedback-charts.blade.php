@@ -78,7 +78,7 @@
 
     <div class="space-y-6">
         <x-ui::card>
-            <x-ui::heading level="4" class="mb-4">Chart.js wrapper</x-ui::heading>
+            <x-ui::heading level="4" class="mb-4">Chart Component (Chart.js)</x-ui::heading>
             <x-ui::chart id="ui-demo-chart" :config="[
                 'type' => 'line',
                 'data' => [
@@ -118,7 +118,7 @@
             ]" class="h-80" />
         </x-ui::card>
 
-        <x-ui::card>
+        {{-- <x-ui::card>
             <x-ui::heading level="4" class="mb-2">Highchart</x-ui::heading>
             <p class="mb-4 text-sm text-slate-600 dark:text-slate-300">
                 This component remains available for backward compatibility, but `x-ui::chart` is the preferred option for new work.
@@ -135,6 +135,6 @@
                     ]
                 }
             </x-ui::highchart>
-        </x-ui::card>
+        </x-ui::card> --}}
     </div>
 </div>
