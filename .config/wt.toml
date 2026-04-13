@@ -1,0 +1,13 @@
+# # Project Configuration
+#
+# .config/wt.toml
+
+pre-start = [
+  { copy = 'wt step copy-ignored --from main' },
+  { php = 'test -f composer.json && [ -d vendor ] || composer install || true' },
+  { js = 'test -f package.json && [ -d node_modules ] || npm install || true' },
+  { key = 'test -f artisan && test -f .env && php artisan key:generate --force || true' }
+]
+
+post-start = "test -f composer.json && composer run dev || true"
+
