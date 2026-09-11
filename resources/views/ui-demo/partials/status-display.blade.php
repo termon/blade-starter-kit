@@ -34,7 +34,7 @@
             <x-ui::heading level="4" class="mb-4">Display helpers</x-ui::heading>
 
             <div class="rounded-xl border border-slate-200 px-4 dark:border-slate-700">
-                <x-ui::display label="Application" value="{{ config('app.name') }}" icon="home" />
+                <x-ui::display label="Application" :value="config('app.name')" icon="home" />
                 <x-ui::display label="Package" value="termon/ui" icon="badge" />
                 <x-ui::display label="Theme" value="Tailwind CSS 4" icon="light-bulb" />
                 <x-ui::display label="Status" icon="check-circle">

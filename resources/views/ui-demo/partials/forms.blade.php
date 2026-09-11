@@ -30,10 +30,12 @@
             </div>
 
             <div class="grid gap-4 md:grid-cols-2">
-                <div class="w-1/3 md:w-full">
-                    <x-ui::form.label for="demo-toggle" icon="check-circle">Toggle</x-ui::form.label>
-                    <x-ui::form.toggle name="demo-toggle" :value="true" variant="green" />
-                </div>
+                <x-ui::form.toggle
+                    name="demo-toggle"
+                    label="Email notifications"
+                    description="Receive an email when a demo action completes."
+                    checked
+                />
                 <div>
                     <x-ui::form.label for="demo-code-1" icon="finger-print">OTP</x-ui::form.label>
                     <x-ui::form.otp name="demo-code" length="6" />
@@ -57,13 +59,33 @@
             <x-ui::form.select-group label="Role" name="role" :options="$roles" value="admin" icon="badge" />
             <x-ui::form.textarea-group label="Description" name="description" value="Grouped fields render label and error handling together." icon="document" />
 
+            <x-ui::form.checkbox-group
+                label="Checkboxes"
+                description="Select all channels that should receive updates."
+                name="channels"
+                :options="[
+                    'email' => ['label' => 'Email', 'description' => 'Product and account updates.'],
+                    'sms' => ['label' => 'SMS', 'description' => 'Time-sensitive notifications.'],
+                    'push' => ['label' => 'Push', 'description' => 'In-app notifications.', 'disabled' => true],
+                ]"
+                :value="['email']"
+                variant="card"
+                icon="check-circle"
+            />
+
             <div class="grid gap-4 md:grid-cols-2">
                 <x-ui::form.date-group label="Start Date" name="start_date" value="2026-03-24" icon="calendar-days" />
                 <x-ui::form.datetime-group label="Launch Window" name="launch_window" value="2026-03-24 09:15:00" icon="calendar-days" />
             </div>
 
             <div class="grid gap-4 md:grid-cols-2">
-                <x-ui::form.toggle-group label="Published" name="published" :value="true" variant="green" icon="check-circle" />
+                <x-ui::form.toggle-group
+                    label="Published"
+                    description="Make this example visible."
+                    name="published"
+                    checked
+                    variant="card"
+                />
                 <x-ui::form.otp-group label="Verification Code" name="verification_code" length="6" icon="finger-print" />
             </div>
             
@@ -71,10 +93,6 @@
                 <x-ui::form.range-group label="Confidence" name="confidence" min="1" max="10" step="1" value="7" variant="yellow" icon="chart" />
             </x-ui::card>
          
-            {{-- <div class="rounded-xl border border-dashed border-slate-300 p-4 dark:border-slate-700">
-                <p class="mb-3 text-sm text-slate-600 dark:text-slate-300">The confirm component swaps a single action into a yes/no confirmation and submits the surrounding form when confirmed.</p>
-                <x-ui::form.confirm variant="ored" message="Run the demo action?">Confirm Action</x-ui::form.confirm>
-            </div> --}}
         </form>
     </x-ui::card>
 </div>

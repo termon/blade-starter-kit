@@ -1,4 +1,21 @@
 <div class="grid gap-6 xl:grid-cols-2">
+    <x-ui::card class="xl:col-span-2">
+        <x-ui::heading level="4" class="mb-4">Navigation tabs</x-ui::heading>
+
+        <div class="space-y-4">
+            <x-ui::nav-tabs label="Primary demo navigation">
+                <x-ui::nav-tabs.link :href="route('ui-demo')" active>Overview</x-ui::nav-tabs.link>
+                <x-ui::nav-tabs.link :href="route('about')">Details</x-ui::nav-tabs.link>
+                <x-ui::nav-tabs.link disabled>Unavailable</x-ui::nav-tabs.link>
+            </x-ui::nav-tabs>
+
+            <x-ui::nav-tabs variant="secondary" label="Secondary demo navigation">
+                <x-ui::nav-tabs.link :href="route('ui-demo')" variant="secondary" active>All</x-ui::nav-tabs.link>
+                <x-ui::nav-tabs.link :href="route('contact')" variant="secondary">Contact</x-ui::nav-tabs.link>
+            </x-ui::nav-tabs>
+        </div>
+    </x-ui::card>
+
     <x-ui::card>
         <x-ui::heading level="4" class="mb-4">Navbar layout component</x-ui::heading>
 

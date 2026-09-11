@@ -1,6 +1,23 @@
 <div class="grid gap-6 xl:grid-cols-2">
     <div class="space-y-6">
         <x-ui::card>
+            <x-ui::heading level="4" class="mb-4">Accordion</x-ui::heading>
+
+            <x-ui::accordion open="first">
+                <x-ui::accordion.item name="first" title="What changed?" summary="Component contracts" variant="blue">
+                    <p class="p-4 text-sm text-slate-600 dark:text-slate-300">
+                        Toggle state now uses the checked prop, while grouped toggles support plain and card presentation variants.
+                    </p>
+                </x-ui::accordion.item>
+                <x-ui::accordion.item name="second" title="Is Alpine required?" summary="Yes" variant="slate">
+                    <p class="p-4 text-sm text-slate-600 dark:text-slate-300">
+                        Interactive components use the Alpine instance bundled with Livewire.
+                    </p>
+                </x-ui::accordion.item>
+            </x-ui::accordion>
+        </x-ui::card>
+
+        <x-ui::card>
             <x-ui::heading level="4" class="mb-4">Modal</x-ui::heading>
 
             <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/40">
@@ -79,7 +96,11 @@
     <div class="space-y-6">
         <x-ui::card>
             <x-ui::heading level="4" class="mb-4">Chart Component (Chart.js)</x-ui::heading>
-            <x-ui::chart id="ui-demo-chart" :config="[
+            <x-ui::chart
+                id="ui-demo-chart"
+                aria-label="Monthly visits and signups from January to June"
+                fallback-text="A line chart comparing monthly visits and signups."
+                :config="[
                 'type' => 'line',
                 'data' => [
                     'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
@@ -115,7 +136,9 @@
                         ],
                     ],
                 ],
-            ]" class="h-80" />
+                ]"
+                class="h-80"
+            />
         </x-ui::card>
 
         {{-- <x-ui::card>

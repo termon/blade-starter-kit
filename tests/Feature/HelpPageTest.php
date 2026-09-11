@@ -35,4 +35,20 @@ class HelpPageTest extends TestCase
             ->assertSee('Core Pages')
             ->assertSee('Features');
     }
+
+    public function test_traits_help_page_documents_the_current_trait_capabilities(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('help', ['page' => 'features/traits']));
+
+        $response
+            ->assertOk()
+            ->assertSee('Accepted values and lifecycle')
+            ->assertSee('Custom stored filenames')
+            ->assertSee('direct relationship columns')
+            ->assertSee('multi-column sorting')
+            ->assertSee('EnumOptions');
+    }
 }

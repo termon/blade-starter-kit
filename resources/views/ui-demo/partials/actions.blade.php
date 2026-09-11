@@ -12,6 +12,8 @@
                 <x-ui::button variant="light" icon="mail" label="Message" />
                 <x-ui::button variant="oblue" icon="folder" label="Outline" />
                 <x-ui::button variant="ored" icon="x-mark" label="Danger" />
+                <x-ui::button variant="ogreen" icon="check" label="Positive" />
+                <x-ui::button variant="oyellow" icon="light-bulb" label="Caution" />
                 <x-ui::button variant="link" icon="arrow-right" label="Link Button" />
                 <x-ui::button variant="none" icon="eye" label="Icon Action" />
             </div>
@@ -37,6 +39,14 @@
             <x-ui::badge variant="indigo">Queued</x-ui::badge>
             <x-ui::badge variant="purple">Beta</x-ui::badge>
             <x-ui::badge variant="pink">Preview</x-ui::badge>
+        </div>
+
+        <x-ui::heading level="5" class="mb-3 mt-6">Chips</x-ui::heading>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <x-ui::chip variant="sky" icon="info">Documentation</x-ui::chip>
+            <x-ui::chip variant="emerald" icon="check">Ready</x-ui::chip>
+            <x-ui::chip variant="slate" icon="tag" size="sm">Compact</x-ui::chip>
         </div>
     </x-ui::card>
 </div>

@@ -17,11 +17,12 @@
     "require": {
         "php": "^8.3",
         "franbarbalopez/mirror": "^1.5",
-        "laravel/framework": "^13.0",
+        "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0",
         "livewire/livewire": "^4.1",
+        "livewire/blaze": "^1.0",
         "symfony/dom-crawler": "^8.0",
-        "termon/ui": "^1.8.1"
+        "termon/ui": "^1.8.42"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.7",

@@ -10,6 +10,19 @@ class UiDemoActionsTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_authenticated_user_can_view_the_ui_demo(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('ui-demo'));
+
+        $response
+            ->assertOk()
+            ->assertSee('termon/ui Component Library')
+            ->assertSee('Checkboxes')
+            ->assertSee('Accordion');
+    }
+
     public function test_ui_demo_preview_post_requires_authentication(): void
     {
         $response = $this->post(route('ui-demo.preview.post'));

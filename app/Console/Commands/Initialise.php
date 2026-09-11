@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
-use Illuminate\Support\Facades\Artisan;
 
 class Initialise extends Command
 {
@@ -34,8 +34,10 @@ class Initialise extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
+        $this->prepareFreshApplication();
+
         $this->info('Clearing application caches');
         $this->call('cache:clear', []);
         $this->call('view:clear', []);
@@ -69,7 +71,9 @@ class Initialise extends Command
         }
 
         // run npm build
-        $this->buildAssets();
+        if ($this->buildAssets() !== Command::SUCCESS) {
+            return Command::FAILURE;
+        }
 
         // check if the user wants to delete the log file
         $this->deleteLog();
@@ -83,8 +87,46 @@ class Initialise extends Command
         return Command::SUCCESS;
     }
 
-    public function buildAssets()
+    protected function prepareFreshApplication(): void
     {
+        if (File::exists(base_path('.env'))) {
+            return;
+        }
+
+        $this->info('No .env file found. Copying .env.example...');
+
+        File::copy(base_path('.env.example'), base_path('.env'));
+
+        $this->ensureSqliteDatabaseExists();
+
+        $this->info('Running database migrations for the new application...');
+        $this->call('migrate', ['--graceful' => true, '--force' => true]);
+    }
+
+    protected function ensureSqliteDatabaseExists(): void
+    {
+        if (config('database.default') !== 'sqlite') {
+            return;
+        }
+
+        $databasePath = (string) config('database.connections.sqlite.database');
+
+        if ($databasePath === '' || $databasePath === ':memory:' || File::exists($databasePath)) {
+            return;
+        }
+
+        File::ensureDirectoryExists(dirname($databasePath));
+        File::put($databasePath, '');
+
+        $this->info("Created SQLite database at [{$databasePath}].");
+    }
+
+    public function buildAssets(): int
+    {
+        if ($this->installNodeDependenciesIfMissing() !== Command::SUCCESS) {
+            return Command::FAILURE;
+        }
+
         $this->info('Running npm run build...');
 
         $result = Process::path(base_path())->run('npm run build');
@@ -94,11 +136,38 @@ class Initialise extends Command
         } else {
             $this->error('Build failed:');
             $this->error($result->errorOutput());
+
             return Command::FAILURE;
         }
+
+        return Command::SUCCESS;
     }
 
-    public function deleteLog()
+    protected function installNodeDependenciesIfMissing(): int
+    {
+        if (File::isDirectory(base_path('node_modules'))) {
+            return Command::SUCCESS;
+        }
+
+        $installCommand = File::exists(base_path('package-lock.json')) ? 'npm ci' : 'npm install';
+
+        $this->info("Node modules not found. Running {$installCommand}...");
+
+        $result = Process::path(base_path())->run($installCommand);
+
+        if ($result->failed()) {
+            $this->error('Frontend dependency installation failed:');
+            $this->error($result->errorOutput());
+
+            return Command::FAILURE;
+        }
+
+        $this->info('Frontend dependencies installed successfully.');
+
+        return Command::SUCCESS;
+    }
+
+    public function deleteLog(): void
     {
         if ($this->confirm('Do you want to delete the Laravel log file?', false)) {
 

@@ -1,5 +1,8 @@
 @php
+    use Composer\InstalledVersions;
     use Illuminate\Pagination\LengthAwarePaginator;
+
+    $uiVersion = InstalledVersions::getPrettyVersion('termon/ui') ?? 'installed';
 
     $progress = [
         1 => ['Student Details', true],
@@ -24,6 +27,8 @@
         'funnel', 'globe', 'home', 'identification', 'inbox-arrow-down', 'info', 'light-bulb',
         'link', 'list', 'list-bullet', 'magnifying-glass', 'mail', 'minus', 'moon', 'photo',
         'pie', 'plus', 'search', 'tag', 'trash', 'user', 'users', 'wrench', 'x-mark',
+        'arrow-uturn-down', 'book-open', 'building-office', 'computer-desktop',
+        'exclamation-triangle', 'paperclip', 'phone',
     ];
 
     $tableRows = collect([
@@ -94,7 +99,7 @@ BLADE;
             subheading="A practical demo of the package components currently installed in this starter kit."
             class="mb-6"
         >
-        <span>Blade components developed using <x-ui::link target="_blank" href="https://tailwindcss.com">Tailwind</x-ui::link> and <x-ui::link target="_blank" href="https://alpinejs.dev">AlpineJS</x-ui::link></span>
+            <span>Blade components developed using <x-ui::link target="_blank" href="https://tailwindcss.com">Tailwind</x-ui::link> and <x-ui::link target="_blank" href="https://alpinejs.dev">AlpineJS</x-ui::link></span>
         </x-ui::hero>
 
         <x-ui::tabs active="Introduction">
@@ -133,6 +138,7 @@ BLADE;
                 @include('ui-demo.partials.data', [
                     'tableRows' => $tableRows,
                     'paginator' => $paginator,
+                    'uiVersion' => $uiVersion,
                 ])
             </x-ui::tabs.tab>
 
