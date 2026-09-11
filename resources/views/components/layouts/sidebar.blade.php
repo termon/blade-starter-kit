@@ -46,7 +46,7 @@
         @endguest
         @auth         
             <x-ui::sidebar.dropdown label="{{ auth()->user()->name }}" icon="user">  
-                @can('view', App\Models\User::class)
+                @can('viewAny', App\Models\User::class)
                     <x-ui::sidebar.link href="{{ route('users.index') }}" icon="user" label="Users" />
                 @endcan                    
                 <x-ui::sidebar.link icon="cog" label="Profile" href="/settings/profile" />
@@ -60,7 +60,7 @@
         <x-ui::sidebar.link @click="dark = !dark" icon="moon" />
         <x-ui::sidebar.link :href="route('help')" icon="info" />
         @impersonating
-            <x-ui::sidebar.link class="text-red-600 font-bold" icon="exit" href="{{ route('users.mirror.stop') }}" />
+            <x-ui::sidebar.form-link class="text-red-600 font-bold" :action="route('users.mirror.stop')" icon="exit" method="post" label="Stop impersonating" />
         @endimpersonating
     </x-slot:toolbar>
 

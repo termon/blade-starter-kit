@@ -15,31 +15,37 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        if (! app()->isLocal()) {
+            $this->command?->warn('Skipping demo accounts outside the local environment.');
+
+            return;
+        }
+
         User::create([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
             'password' => Hash::make('password'),
-            'role' => Role::ADMIN
+            'role' => Role::ADMIN,
         ]);
 
         User::create([
             'name' => 'User',
             'email' => 'user@mail.com',
             'password' => Hash::make('password'),
-            'role' => Role::USER
+            'role' => Role::USER,
         ]);
 
         User::create([
             'name' => 'Guest',
             'email' => 'guest@mail.com',
             'password' => Hash::make('password'),
-            'role' => Role::GUEST
+            'role' => Role::GUEST,
         ]);
 
         User::factory(20)->create();
 
         $this->call([
-           // other seeders
+            // other seeders
         ]);
     }
 }

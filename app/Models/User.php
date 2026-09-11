@@ -6,23 +6,29 @@ namespace App\Models;
 use App\Enums\Role;
 use App\Traits\FileUpload;
 use App\Traits\Searchable;
-use Illuminate\Notifications\Notifiable;
+use App\Traits\Sortable;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Mirror\Concerns\Impersonatable;
 
 /**
  * @property int $id
  * @property string $name
  * @property string $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property Carbon|null $email_verified_at
  * @property string $password
  * @property Role $role
  * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
@@ -37,34 +43,45 @@ use Mirror\Concerns\Impersonatable;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User search($search)
+ *
  * @property string|null $avatar
  * @property-read array $config_for
  * @property-read string $default_file
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAvatar($value)
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
-    use Impersonatable;
     use FileUpload;
+
+    /** @use HasFactory<UserFactory> */
+    use HasFactory, Notifiable;
+
+    use Impersonatable;
     use Searchable;
+    use Sortable;
 
     /**
-     * return fileupload configuration
-     * 
-     * @return array 
+     * @var array<int, string>
+     */
+    protected array $sortable = ['id', 'name', 'email', 'role'];
+
+    /**
+     * Return file upload configuration.
+     *
+     * @return array<string, array<string, bool>>
      */
     protected function fileUploads(): array
     {
         return [
-            'avatar' => [ 'as_base64' => true ],
+            'avatar' => ['as_base64' => true],
         ];
     }
- 
+
     public function canImpersonate(): bool
-    {       
+    {
         return $this->role === Role::ADMIN;
     }
 
@@ -72,7 +89,6 @@ class User extends Authenticatable
     {
         return $this->role !== Role::ADMIN;
     }
- 
 
     /**
      * The attributes that are mass assignable.
@@ -84,7 +100,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'avatar'
+        'avatar',
     ];
 
     /**
@@ -107,8 +123,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'role' => Role::class
+            'role' => Role::class,
         ];
     }
-
 }

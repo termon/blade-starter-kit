@@ -8,7 +8,7 @@ enum Role: string
 {
     use EnumOptions;
 
-    case ADMIN = "admin";
-    case USER  = "user";
-    case GUEST = "guest";
+    case ADMIN = 'admin';
+    case USER = 'user';
+    case GUEST = 'guest';
 }

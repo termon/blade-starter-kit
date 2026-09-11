@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -22,6 +21,7 @@ class NewPasswordControllerTest extends TestCase
             'token' => Hash::make($token),
             'created_at' => now(),
         ]);
+
         return $token;
     }
 
@@ -172,6 +172,22 @@ class NewPasswordControllerTest extends TestCase
 
         // Assert
         $response->assertSessionHasErrors(['password']);
+    }
+
+    public function test_password_reset_requires_minimum_password_length(): void
+    {
+        $user = User::factory()->create();
+        $token = $this->createPasswordResetToken($user);
+
+        $response = $this->post(route('password.store'), [
+            'token' => $token,
+            'email' => $user->email,
+            'password' => '123',
+            'password_confirmation' => '123',
+        ]);
+
+        $response->assertSessionHasErrors(['password']);
+        $this->assertFalse(Hash::check('123', $user->fresh()->password));
     }
 
     public function test_password_reset_updates_remember_token(): void

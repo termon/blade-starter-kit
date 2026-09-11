@@ -27,7 +27,14 @@ class UiDemoActionsTest extends TestCase
     {
         $response = $this->post(route('ui-demo.preview.post'));
 
-        $response->assertRedirect(route('ui-demo'));
+        $response->assertRedirect(route('login'));
+    }
+
+    public function test_ui_demo_page_requires_authentication(): void
+    {
+        $response = $this->get(route('ui-demo'));
+
+        $response->assertRedirect(route('login'));
     }
 
     public function test_ui_demo_preview_post_redirects_back_with_success_flash(): void

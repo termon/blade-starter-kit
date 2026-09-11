@@ -24,7 +24,7 @@ class AuthenticationSystemTest extends TestCase
     public function test_auth_middleware_allows_authenticated_users(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -38,7 +38,7 @@ class AuthenticationSystemTest extends TestCase
     public function test_admin_role_functionality(): void
     {
         // Arrange
-        /** @var \App\Models\User $admin */
+        /** @var User $admin */
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $this->actingAs($admin);
 
@@ -50,7 +50,7 @@ class AuthenticationSystemTest extends TestCase
     public function test_guest_role_functionality(): void
     {
         // Arrange
-        /** @var \App\Models\User $guest */
+        /** @var User $guest */
         $guest = User::factory()->create(['role' => Role::GUEST]);
         $this->actingAs($guest);
 
@@ -86,7 +86,7 @@ class AuthenticationSystemTest extends TestCase
     public function test_user_model_has_correct_fillable_attributes(): void
     {
         // Arrange
-        $user = new User();
+        $user = new User;
 
         // Act & Assert
         $fillable = $user->getFillable();
@@ -99,7 +99,7 @@ class AuthenticationSystemTest extends TestCase
     public function test_user_model_has_correct_hidden_attributes(): void
     {
         // Arrange
-        $user = new User();
+        $user = new User;
 
         // Act & Assert
         $hidden = $user->getHidden();
@@ -156,7 +156,7 @@ class AuthenticationSystemTest extends TestCase
     public function test_authentication_session_persistence(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
 
         // Act
@@ -171,7 +171,7 @@ class AuthenticationSystemTest extends TestCase
     public function test_logout_clears_authentication(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
         $this->actingAs($user);
         $this->assertTrue(Auth::check());
@@ -207,7 +207,7 @@ class AuthenticationSystemTest extends TestCase
     public function test_guest_route_protection(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
         $this->actingAs($user);
 

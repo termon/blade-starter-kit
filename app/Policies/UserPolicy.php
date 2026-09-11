@@ -4,15 +4,18 @@ namespace App\Policies;
 
 use App\Enums\Role;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
-    
+    public function viewAny(User $user): bool
+    {
+        return $user->role === Role::ADMIN;
+    }
+
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user): bool
+    public function view(User $user, User $model): bool
     {
         return $user->role === Role::ADMIN;
     }
@@ -40,5 +43,4 @@ class UserPolicy
     {
         return $user->role === Role::ADMIN;
     }
-
 }

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests\Settings\DeleteProfileRequest;
+use App\Http\Requests\Settings\UpdateProfileRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -18,6 +18,7 @@ class ProfileController extends Controller
             'user' => $request->user(),
         ]);
     }
+
     public function edit(Request $request): View
     {
         return view('settings.profile', [
@@ -25,22 +26,11 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function update(Request $request): RedirectResponse
+    public function update(UpdateProfileRequest $request): RedirectResponse
     {
         $user = $request->user();
 
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($user->id),
-            ],
-            'avatar' => ['nullable', 'image', 'max:2048'],
-        ]);
+        $validated = $request->validated();
 
         $user->fill($validated);
 
@@ -50,11 +40,13 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return to_route('settings.profile.edit')->with('status','Profile updated successfully');
+        return to_route('settings.profile.edit')->with('status', 'Profile updated successfully');
     }
 
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(DeleteProfileRequest $request): RedirectResponse
     {
+        $request->validated();
+
         $user = $request->user();
 
         Auth::logout();

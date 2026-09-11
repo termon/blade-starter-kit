@@ -49,9 +49,12 @@ The users table shows an impersonate action for impersonatable users:
 
 ```blade
 @if ($user->canBeImpersonated())
-    <x-ui::link variant='none' href="{{ route('users.mirror.start', $user->id) }}" title="impersonate user">
-        <x-ui::svg icon="finger-print" size="sm" />
-    </x-ui::link>
+    <form method="POST" action="{{ route('users.mirror.start', $user) }}">
+        @csrf
+        <x-ui::button variant="none" type="submit" title="Impersonate user">
+            <x-ui::svg icon="finger-print" size="sm" />
+        </x-ui::button>
+    </form>
 @endif
 ```
 
@@ -59,7 +62,12 @@ The sidebar toolbar shows a stop action while impersonation is active:
 
 ```blade
 @impersonating
-    <x-ui::sidebar.link class="text-red-600 font-bold" icon="exit" href="{{ route('users.mirror.stop') }}" />
+    <x-ui::sidebar.form-link
+        :action="route('users.mirror.stop')"
+        icon="exit"
+        method="post"
+        label="Stop impersonating"
+    />
 @endimpersonating
 ```
 
@@ -67,5 +75,7 @@ The sidebar toolbar shows a stop action while impersonation is active:
 
 - `users.mirror.start`
 - `users.mirror.stop`
+
+Both actions use `POST` so Laravel's CSRF protection applies. Authenticated application routes use `mirror.ttl`, while account, password, and user mutations use `mirror.prevent` to block sensitive changes during impersonation. The default session lifetime is controlled by `MIRROR_TTL` and is one hour.
 
 Use this pattern when admins need to temporarily assume another user's session for support or troubleshooting.

@@ -3,9 +3,9 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Auth\Notifications\ResetPassword;
 use Tests\TestCase;
 
 class PasswordResetLinkControllerTest extends TestCase
@@ -78,7 +78,7 @@ class PasswordResetLinkControllerTest extends TestCase
     public function test_authenticated_users_are_redirected_from_forgot_password(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -88,5 +88,4 @@ class PasswordResetLinkControllerTest extends TestCase
         // Assert
         $response->assertRedirect(route('home'));
     }
-
 }

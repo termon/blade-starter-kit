@@ -10,18 +10,31 @@ use Symfony\Component\DomCrawler\Crawler;
 class Help extends Component
 {
     public string $helpDir;
+
     public bool $showPageLinks;
+
     public bool $showQuickLinks;
+
     public bool $showBreadcrumbs;
+
     public ?string $page;
+
     public ?string $content;
+
     public array $headings;
+
     public ?string $currentPage;
+
     public $availablePages;
+
     public string $class;
+
     public string $sidebarClass;
+
     public string $contentClass;
+
     public bool $showPagesList;
+
     public array $breadcrumbs;
 
     public function __construct(
@@ -53,23 +66,23 @@ class Help extends Component
 
         $this->processPage();
         $this->discoverPages();
-        
+
         if ($this->showBreadcrumbs) {
             $this->generateBreadcrumbs();
         }
-        
+
         $this->showPagesList = is_null($this->content);
     }
 
     protected function processPage(): void
     {
-        if (!$this->page || $this->content) {
+        if (! $this->page || $this->content) {
             return;
         }
 
         // For nested paths, use the page parameter as-is (already sanitized by controller)
         // For simple slugs, apply additional sanitization as fallback
-        if (!str_contains($this->page, '/')) {
+        if (! str_contains($this->page, '/')) {
             $this->page = Str::slug($this->page) ?: 'index';
         }
 
@@ -77,17 +90,18 @@ class Help extends Component
 
         // Check if this is a directory browse request
         $directoryPath = resource_path("{$this->helpDir}/{$this->page}");
-        $isDirectoryBrowse = File::isDirectory($directoryPath) && !File::exists($markdownPath);
+        $isDirectoryBrowse = File::isDirectory($directoryPath) && ! File::exists($markdownPath);
 
         if ($isDirectoryBrowse) {
             // This is a directory browse request - don't load content, show directory listing
             $this->content = null;
             $this->currentPage = $this->page;
+
             return;
         }
 
         // If the direct file doesn't exist, try looking for an index file in the directory
-        if (!File::exists($markdownPath)) {
+        if (! File::exists($markdownPath)) {
             $directoryIndexPath = resource_path("{$this->helpDir}/{$this->page}/index.md");
             if (File::exists($directoryIndexPath)) {
                 $markdownPath = $directoryIndexPath;
@@ -135,14 +149,15 @@ class Help extends Component
 
     protected function discoverPages(): void
     {
-        if (!empty($this->availablePages)) {
+        if (! empty($this->availablePages)) {
             return;
         }
 
         $helpPath = resource_path($this->helpDir);
 
-        if (!File::isDirectory($helpPath)) {
+        if (! File::isDirectory($helpPath)) {
             $this->availablePages = collect();
+
             return;
         }
 
@@ -184,7 +199,7 @@ class Help extends Component
             if ($file->getRelativePath()) {
                 // For subdirectory index files, use "Overview" or the directory name + "Overview"
                 $directoryName = basename($file->getRelativePath());
-                $title = Str::title(str_replace('-', ' ', $directoryName)) . ' Overview';
+                $title = Str::title(str_replace('-', ' ', $directoryName)).' Overview';
             } else {
                 // For root index file
                 $title = 'Starter Kit';
@@ -239,13 +254,19 @@ class Help extends Component
                 return $categoryPages->sortBy(function ($page) {
                     // Index files (overview pages) come first, then alphabetical by title
                     $isIndex = str_ends_with($page['slug'], '/index') || $page['slug'] === 'index';
-                    return ($isIndex ? '0-' : '1-') . $page['title'];
+
+                    return ($isIndex ? '0-' : '1-').$page['title'];
                 });
             })
             ->sortKeysUsing(function ($a, $b) {
                 // Always put "General Documentation" first
-                if ($a === 'General Documentation') return -1;
-                if ($b === 'General Documentation') return 1;
+                if ($a === 'General Documentation') {
+                    return -1;
+                }
+                if ($b === 'General Documentation') {
+                    return 1;
+                }
+
                 // Sort other categories alphabetically
                 return strcmp($a, $b);
             });
@@ -262,7 +283,7 @@ class Help extends Component
                 $path = '';
 
                 foreach ($segments as $index => $segment) {
-                    $path .= ($path ? '/' : '') . $segment;
+                    $path .= ($path ? '/' : '').$segment;
                     $title = Str::title(str_replace('-', ' ', $segment));
 
                     if ($index === count($segments) - 1) {

@@ -24,7 +24,7 @@
         <x-ui::navbar.link href="/" icon="home" label="Home" />
        
         <x-ui::navbar.dropdown label="Information" icon="folder">
-            @can('view', App\Models\User::class)
+            @can('viewAny', App\Models\User::class)
                 <x-ui::navbar.link href="{{ route('users.index') }}" icon="user" label="Users" />
             @endcan
             <x-ui::navbar.link label="UI Demo" :href="route('ui-demo')" icon="chart" />
@@ -49,7 +49,7 @@
         <x-ui::navbar.link @click="dark = !dark" icon="moon" />
         <x-ui::navbar.link :href="route('help')" icon="info" />
         @impersonating
-            <x-ui::navbar.link class="text-red-600 font-bold" icon="exit" href="{{ route('users.mirror.stop') }}" />
+            <x-ui::navbar.form-link class="text-red-600 font-bold" :action="route('users.mirror.stop')" icon="exit" method="post" label="Stop impersonating" />
         @endimpersonating
     </x-slot:toolbar>
 </x-ui::navbar>

@@ -1,19 +1,14 @@
 <?php
 
-use App\Http\Controllers\Auth\{
-    ConfirmationController, 
-    LoginController, 
-    NewPasswordController, 
-    PasswordResetLinkController, 
-    RegistrationController, 
-    VerificationController
-};
-use App\Http\Controllers\Settings\{
-    AppearanceController, 
-    PasswordController, 
-    ProfileController
-};
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\ConfirmationController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Settings\AppearanceController;
+use App\Http\Controllers\Settings\PasswordController;
+use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -39,15 +34,13 @@ Route::middleware('auth')->group(function () {
     Route::post('confirm-password', [ConfirmationController::class, 'store'])->middleware('throttle:6,1')->name('confirmation.store');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'mirror.ttl'])->group(function () {
     Route::get('settings', [ProfileController::class, 'show'])->name('settings.profile.show');
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('settings.profile.edit');
-    Route::put('settings/profile', [ProfileController::class, 'update'])->name('settings.profile.update');
-    Route::delete('settings/profile', [ProfileController::class, 'destroy'])->name('settings.profile.destroy');
+    Route::put('settings/profile', [ProfileController::class, 'update'])->middleware('mirror.prevent')->name('settings.profile.update');
+    Route::delete('settings/profile', [ProfileController::class, 'destroy'])->middleware('mirror.prevent')->name('settings.profile.destroy');
     Route::get('settings/password', [PasswordController::class, 'edit'])->name('settings.password.edit');
-    Route::put('settings/password', [PasswordController::class, 'update'])->name('settings.password.update');
+    Route::put('settings/password', [PasswordController::class, 'update'])->middleware('mirror.prevent')->name('settings.password.update');
     Route::get('settings/appearance', [AppearanceController::class, 'edit'])->name('settings.appearance.edit');
     Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 });
-
-

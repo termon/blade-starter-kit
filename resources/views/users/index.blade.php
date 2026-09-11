@@ -33,13 +33,15 @@
                     <x-ui::table.td>{{ $user->id }}</x-ui::table.td>
                     <x-ui::table.td>{{ $user->name }}</x-ui::table.td>
                     <x-ui::table.td>{{ $user->email }}</x-ui::table.td>
-                    <x-ui::table.td>{{ $user->role }}</x-ui::table.td>
+                    <x-ui::table.td>{{ $user->role->value }}</x-ui::table.td>
                     <x-ui::table.td class="flex gap-2">
                         @if ($user->canBeImpersonated())
-                            <x-ui::link variant='none' href="{{ route('users.mirror.start', $user->id) }}"
-                                title="impersonate user">
-                                <x-ui::svg icon="finger-print" size="sm" />
-                            </x-ui::link>
+                            <form method="POST" action="{{ route('users.mirror.start', $user) }}">
+                                @csrf
+                                <x-ui::button variant="none" type="submit" title="Impersonate user">
+                                    <x-ui::svg icon="finger-print" size="sm" />
+                                </x-ui::button>
+                            </form>
                         @endif
                         <x-ui::link variant='none' href="{{ route('users.edit', $user->id) }}" title="edit user">
                             <x-ui::svg icon="edit" size="sm" />
@@ -50,6 +52,6 @@
         </x-slot:tbody>
     </x-ui::table>
 
-    <x-ui::paginator :items="$users" class="mt-4"/>
+    <x-ui::paginator :items="$users" :options="[10 => 10, 25 => 25, 50 => 50, 100 => 100]" class="mt-4" />
 
 </x-layouts.app>

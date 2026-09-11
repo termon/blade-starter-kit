@@ -32,12 +32,12 @@
 
                         <div class="mb-4">
                             <x-ui::form.input-group label="Name" name="name" type="text"
-                                value="{{ old('name', $user->name) }}" />
+                                :value="old('name', $user->name)" />
                         </div>
 
                         <div class="mb-6">
                             <x-ui::form.input-group label="Email" name="email" type="email"
-                                value="{{ old('email', $user->email) }}" />
+                                :value="old('email', $user->email)" />
                         </div>
 
                         <div class="mb-6">
@@ -60,6 +60,9 @@
                         <form action="{{ route('settings.profile.destroy') }}" method="POST">
                             @csrf
                             @method('DELETE')
+                            <div class="mb-4 max-w-md">
+                                <x-ui::form.input-group label="Current password" name="password" type="password" />
+                            </div>
                             <x-ui::form.confirm>Delete account</x-ui::form.confirm>
                         </form>
                     </div>

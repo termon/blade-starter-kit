@@ -14,7 +14,7 @@
                 <!-- Email Input -->
                 <div class="mb-4">
                     <x-ui::form.input name="email" type="email" label="Email"
-                        value="{{ old('email', request('email')) }}" placeholder="your@email.com" />
+                        :value="old('email', request('email'))" placeholder="your@email.com" />
                 </div>
 
                 <!-- Password Input -->
@@ -40,4 +40,4 @@
             </div>
         </div>
    </x-ui::card>
-</x-layout.auth>
+</x-layouts.guest>

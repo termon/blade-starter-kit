@@ -97,6 +97,9 @@ class Initialise extends Command
 
         File::copy(base_path('.env.example'), base_path('.env'));
 
+        $this->info('Generating an application key...');
+        $this->call('key:generate', ['--force' => true]);
+
         $this->ensureSqliteDatabaseExists();
 
         $this->info('Running database migrations for the new application...');

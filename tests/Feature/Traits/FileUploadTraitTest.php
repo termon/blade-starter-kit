@@ -98,7 +98,8 @@ class FileUploadTraitTest extends TestCase
 
     private function uploadedAvatarUser(): User
     {
-        return new class extends User {
+        return new class extends User
+        {
             protected $table = 'users';
 
             protected function fileUploads(): array
@@ -115,7 +116,8 @@ class FileUploadTraitTest extends TestCase
 
     private function base64AvatarUser(): User
     {
-        return new class extends User {
+        return new class extends User
+        {
             protected $table = 'users';
 
             protected function fileUploads(): array

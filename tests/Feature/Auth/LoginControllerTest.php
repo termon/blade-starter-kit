@@ -120,7 +120,7 @@ class LoginControllerTest extends TestCase
     public function test_authenticated_users_are_redirected_from_login(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -134,7 +134,7 @@ class LoginControllerTest extends TestCase
     public function test_users_can_logout(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -187,5 +187,4 @@ class LoginControllerTest extends TestCase
         $this->assertEquals(Role::GUEST, Auth::user()->role);
         $response->assertRedirect(route('home'));
     }
-
 }

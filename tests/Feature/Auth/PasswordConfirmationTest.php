@@ -14,7 +14,7 @@ class PasswordConfirmationTest extends TestCase
     public function test_confirm_password_screen_can_be_rendered(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -29,7 +29,7 @@ class PasswordConfirmationTest extends TestCase
     public function test_password_can_be_confirmed(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create([
             'password' => Hash::make('password'),
         ]);
@@ -48,7 +48,7 @@ class PasswordConfirmationTest extends TestCase
     public function test_password_confirmation_fails_with_wrong_password(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create([
             'password' => Hash::make('password'),
         ]);
@@ -66,7 +66,7 @@ class PasswordConfirmationTest extends TestCase
     public function test_password_confirmation_requires_password(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -100,7 +100,7 @@ class PasswordConfirmationTest extends TestCase
     public function test_password_confirmation_with_intended_redirect(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create([
             'password' => Hash::make('password'),
         ]);
@@ -121,7 +121,7 @@ class PasswordConfirmationTest extends TestCase
     public function test_password_confirmation_throttling(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create([
             'password' => Hash::make('password'),
         ]);
@@ -146,7 +146,7 @@ class PasswordConfirmationTest extends TestCase
     public function test_successful_password_confirmation_sets_session(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create([
             'password' => Hash::make('password'),
         ]);
@@ -165,7 +165,7 @@ class PasswordConfirmationTest extends TestCase
     public function test_password_confirmation_session_expires(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create([
             'password' => Hash::make('password'),
         ]);

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Users\IndexUsersRequest;
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\View\View;
 use Mirror\Facades\Mirror;
 
 class UserController extends Controller
@@ -13,21 +16,16 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(IndexUsersRequest $request): View
     {
-        $sort = $request->input('sort', 'id');
-        $direction = $request->input('direction', 'asc');
-        $search = $request->input('search', '');
-        $size = $request->input('size', 10);
-
-        if (Gate::denies('view', User::class)) {
-            // not authorised so redirect and display message
-            return redirect()->route('home')
-                ->with('error', 'You are not authorized to view users.');
-        }
+        $validated = $request->validated();
+        $sort = $validated['sort'] ?? 'id';
+        $direction = $validated['direction'] ?? 'asc';
+        $search = $validated['search'] ?? '';
+        $size = $validated['size'] ?? 10;
 
         $users = User::search($search, ['name', 'email', 'role'])
-            ->orderBy($sort, $direction)
+            ->sortable($sort, $direction)
             ->paginate($size)
             ->withQueryString();
 
@@ -37,35 +35,25 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(User $user): View
     {
-        $user = User::findOrFail($id);
+        Gate::authorize('update', $user);
+
         return view('users.edit', ['user' => $user]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $id],
-            'avatar' => ['nullable', 'image', 'max:2048'],
-            'role' => ['required'],
-            //'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $user = User::findOrFail($id);
-        $user->update($data);
+        $user->update($request->validated());
 
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
-    public function start(int $id)
+    public function start(User $user): RedirectResponse
     {
-        $user = User::findOrFail($id);
-
         if (! Auth::user()->canImpersonate()) {
             return redirect()->route('home', 303)
                 ->with('error', 'You do not have permission to impersonate another user.');
@@ -78,14 +66,14 @@ class UserController extends Controller
 
         Mirror::start($user);
 
-        return redirect()->route('home')->with('info', 'You are now impersonating ' . $user->name . '.');
+        return redirect()->route('home')->with('info', 'You are now impersonating '.$user->name.'.');
     }
 
-    public function stop()
+    public function stop(): RedirectResponse
     {
-        if (Mirror::isImpersonating())
-        {
+        if (Mirror::isImpersonating()) {
             Mirror::stop();
+
             return redirect()->route('home')->with('success', 'Impersonation ended.');
         }
 

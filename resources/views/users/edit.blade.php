@@ -19,20 +19,21 @@
 
         <form method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
             <!-- name -->
             <div class="mt-2">
-                <x-ui::form.input-group label="Name" name="name" type="text" value="{{ old('name', $user->name) }}" />
+                <x-ui::form.input-group label="Name" name="name" type="text" :value="old('name', $user->name)" />
             </div>
 
             <!-- email -->
             <div class="mt-2">
-                <x-ui::form.input-group label="Email" name="email" type="email" value="{{ old('email', $user->email) }}" />
+                <x-ui::form.input-group label="Email" name="email" type="email" :value="old('email', $user->email)" />
             </div>
 
               <!-- role -->
             <div class="mt-2">
-                <x-ui::form.select-group label="Role" name="role" :options="\App\Enums\Role::options()" value="{{ old('role', $user->role) }}" />
+                <x-ui::form.select-group label="Role" name="role" :options="\App\Enums\Role::options()" :value="old('role', $user->role->value)" />
             </div>
 
              <div class="mt-2 flex justify-between">
@@ -40,19 +41,13 @@
                 <img src="{{ $user->avatar_url }}" class="w-24 rounded"/>
             </div>
 
-            <!-- password -->
-            {{-- <div class="flex gap-2  <div class="w-full">
-                <x-ui::form.input label="Password" name="password" type="password" value="{{ old('password', $user->password) }}" />
-            </div> --}}
-
             <!-- submit -->
             <div class="mt-4 flex gap-2">
                 <x-ui::button variant="dark" type="submit">Update</x-ui::button>
-                <x-ui::link link="light" href="{{ route('users.index') }}">Cancel</x-ui::link>
+                <x-ui::link variant="light" href="{{ route('users.index') }}">Cancel</x-ui::link>
             </div>
 
         </form>
     </x-ui::card>
 
-</x-layouts.guest>
-
+</x-layouts.app>

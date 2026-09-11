@@ -29,12 +29,12 @@
 
                         <div class="mb-4">
                             <x-ui::form.input-group label="Name" name="name" type="text"
-                                value="{{ old('name', $user->name) }}" />
+                                :value="old('name', $user->name)" />
                         </div>
 
                         <div class="mb-6">
                             <x-ui::form.input-group label="Email" name="email" type="email"
-                                value="{{ old('email', $user->email) }}" />
+                                :value="old('email', $user->email)" />
                         </div>
 
                         <div class="mb-6">
@@ -58,6 +58,9 @@
                             onsubmit="return confirm('Are you sure you want to delete your account?')">
                             @csrf
                             @method('DELETE')
+                            <div class="mb-4 max-w-md">
+                                <x-ui::form.input-group label="Current password" name="password" type="password" />
+                            </div>
                             <x-ui::button variant="red" type="submit">Delete account</x-ui::button>
                         </form>
                     </div>

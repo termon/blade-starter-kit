@@ -50,8 +50,9 @@
                  <div class="text-center mt-6">
                 <p class="text-sm text-gray-600 dark:text-gray-400">
                     Already have an account?
-                    <x-ui::link link="light" href="{{ route('login') }}" class="!text-blue-600">Login Here</x-ui::link>
+                    <x-ui::link variant="light" href="{{ route('login') }}" class="!text-blue-600">Login Here</x-ui::link>
                 </p>
+            </div>
             </div>
 
         </form>

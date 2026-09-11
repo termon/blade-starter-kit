@@ -16,7 +16,7 @@ class EmailVerificationTest extends TestCase
     public function test_email_verification_screen_can_be_rendered(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create(['email_verified_at' => null]);
         $this->actingAs($user);
 
@@ -32,7 +32,7 @@ class EmailVerificationTest extends TestCase
     {
         // Arrange
         Event::fake();
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create(['email_verified_at' => null]);
         $this->actingAs($user);
 
@@ -48,13 +48,13 @@ class EmailVerificationTest extends TestCase
         // Assert
         Event::assertDispatched(Verified::class);
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(route('home') . '?verified=1');
+        $response->assertRedirect(route('home').'?verified=1');
     }
 
     public function test_email_is_not_verified_with_invalid_hash(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create(['email_verified_at' => null]);
         $this->actingAs($user);
 
@@ -75,7 +75,7 @@ class EmailVerificationTest extends TestCase
     public function test_verification_email_can_be_resent(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create(['email_verified_at' => null]);
         $this->actingAs($user);
 
@@ -90,7 +90,7 @@ class EmailVerificationTest extends TestCase
     public function test_verified_users_are_redirected_from_verification_notice(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create(['email_verified_at' => now()]);
         $this->actingAs($user);
 
@@ -126,7 +126,7 @@ class EmailVerificationTest extends TestCase
     public function test_verification_link_expires(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create(['email_verified_at' => null]);
         $this->actingAs($user);
 
@@ -147,7 +147,7 @@ class EmailVerificationTest extends TestCase
     public function test_verification_throttling(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create(['email_verified_at' => null]);
         $this->actingAs($user);
 
@@ -163,9 +163,9 @@ class EmailVerificationTest extends TestCase
     public function test_user_cannot_verify_another_users_email(): void
     {
         // Arrange
-        /** @var \App\Models\User $user1 */
+        /** @var User $user1 */
         $user1 = User::factory()->create(['email_verified_at' => null]);
-        /** @var \App\Models\User $user2 */
+        /** @var User $user2 */
         $user2 = User::factory()->create(['email_verified_at' => null]);
         $this->actingAs($user1);
 
@@ -187,7 +187,7 @@ class EmailVerificationTest extends TestCase
     {
         // Arrange
         Event::fake();
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create(['email_verified_at' => now()]);
         $this->actingAs($user);
 
@@ -202,6 +202,6 @@ class EmailVerificationTest extends TestCase
 
         // Assert
         Event::assertNotDispatched(Verified::class);
-        $response->assertRedirect(route('home') . '?verified=1');
+        $response->assertRedirect(route('home').'?verified=1');
     }
 }

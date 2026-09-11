@@ -39,7 +39,7 @@ class RegistrationControllerTest extends TestCase
         // Assert
         $this->assertAuthenticated();
         $response->assertRedirect(route('home'));
-        
+
         $user = User::where('email', 'test@example.com')->first();
         $this->assertNotNull($user);
         $this->assertEquals('Test User', $user->name);
@@ -171,7 +171,7 @@ class RegistrationControllerTest extends TestCase
         $response = $this->post(route('register'), [
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'password' => null,
+            'password' => '123',
             'password_confirmation' => '123',
         ]);
 
@@ -184,7 +184,7 @@ class RegistrationControllerTest extends TestCase
     public function test_authenticated_users_are_redirected_from_registration(): void
     {
         // Arrange
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -233,7 +233,7 @@ class RegistrationControllerTest extends TestCase
     public function test_email_cannot_be_longer_than_255_characters(): void
     {
         // Arrange
-        $longEmail = str_repeat('a', 250) . '@example.com'; // Over 255 chars
+        $longEmail = str_repeat('a', 250).'@example.com'; // Over 255 chars
 
         // Act
         $response = $this->post(route('register'), [

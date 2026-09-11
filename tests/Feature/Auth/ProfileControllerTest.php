@@ -38,4 +38,30 @@ class ProfileControllerTest extends TestCase
         $this->assertTrue($user->avatar_exists);
         $this->assertTrue($user->avatar_is_image);
     }
+
+    public function test_account_deletion_requires_the_current_password(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->delete(route('settings.profile.destroy'), ['password' => 'incorrect']);
+
+        $response->assertSessionHasErrors(['password']);
+        $this->assertNotNull($user->fresh());
+        $this->assertAuthenticatedAs($user);
+    }
+
+    public function test_account_can_be_deleted_with_the_current_password(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->delete(route('settings.profile.destroy'), ['password' => 'password']);
+
+        $response->assertRedirect(route('home'));
+        $this->assertModelMissing($user);
+        $this->assertGuest();
+    }
 }
