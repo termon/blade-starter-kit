@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Mirror\Http\Middleware\CheckImpersonationTtl;
 use Tests\TestCase;
 
 class UserManagementTest extends TestCase
@@ -18,6 +19,17 @@ class UserManagementTest extends TestCase
         $this->actingAs($user)
             ->get(route('users.index'))
             ->assertForbidden();
+    }
+
+    public function test_mirror_ttl_middleware_is_applied_to_the_web_group(): void
+    {
+        $route = app('router')->getRoutes()->getByName('home');
+
+        $this->assertNotNull($route);
+        $this->assertContains(
+            CheckImpersonationTtl::class,
+            app('router')->gatherRouteMiddleware($route),
+        );
     }
 
     public function test_admin_can_view_the_user_index(): void

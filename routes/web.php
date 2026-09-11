@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 // =======Authenticated app routes=======
 
-Route::middleware(['auth', 'mirror.ttl'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::view('/', 'welcome')->name('home');
     Route::view('/about', 'about')->name('about');
     Route::view('/contact', 'contact')->name('contact');
@@ -16,7 +16,7 @@ Route::middleware(['auth', 'mirror.ttl'])->group(function () {
 });
 
 // =======User management routes=======
-Route::prefix('/users')->name('users.')->middleware(['auth', 'mirror.ttl'])->group(function () {
+Route::prefix('/users')->name('users.')->middleware('auth')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/edit/{user}', [UserController::class, 'edit'])->name('edit');
     Route::put('/edit/{user}', [UserController::class, 'update'])->middleware('mirror.prevent')->name('update');

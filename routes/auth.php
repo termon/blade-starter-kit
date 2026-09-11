@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('confirm-password', [ConfirmationController::class, 'store'])->middleware('throttle:6,1')->name('confirmation.store');
 });
 
-Route::middleware(['auth', 'mirror.ttl'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('settings', [ProfileController::class, 'show'])->name('settings.profile.show');
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('settings.profile.edit');
     Route::put('settings/profile', [ProfileController::class, 'update'])->middleware('mirror.prevent')->name('settings.profile.update');
