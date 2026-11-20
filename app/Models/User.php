@@ -28,7 +28,6 @@ use Mirror\Concerns\Impersonatable;
  * @property Carbon|null $updated_at
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
@@ -43,13 +42,11 @@ use Mirror\Concerns\Impersonatable;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User search($search)
- *
  * @property string|null $avatar
  * @property-read array $config_for
  * @property-read string $default_file
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAvatar($value)
- *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User sortable($column = 'id', $direction = 'asc', array|string|null $default = null)
  * @mixin \Eloquent
  */
 class User extends Authenticatable

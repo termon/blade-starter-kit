@@ -18,72 +18,137 @@
     ];
 
     $icons = [
-        'academic-cap', 'add', 'add-user', 'adjustments-horizontal', 'archive-box', 'arrow-down',
-        'arrow-down-tray', 'arrow-left', 'arrow-path', 'arrow-right', 'arrow-up', 'arrow-up-tray',
-        'avatar', 'badge', 'bars', 'bars-down', 'bars-up', 'bell', 'calendar-days', 'camera',
-        'chart', 'chat-bubble-left', 'check', 'check-circle', 'chevron-down', 'chevron-left',
-        'chevron-right', 'chevron-up', 'chevron-up-down', 'cog', 'cog-6-tooth', 'document',
-        'document-duplicate', 'edit', 'envelope', 'exit', 'eye', 'finger-print', 'folder',
-        'funnel', 'globe', 'home', 'identification', 'inbox-arrow-down', 'info', 'light-bulb',
-        'link', 'list', 'list-bullet', 'magnifying-glass', 'mail', 'minus', 'moon', 'photo',
-        'pie', 'plus', 'search', 'tag', 'trash', 'user', 'users', 'wrench', 'x-mark',
-        'arrow-uturn-down', 'book-open', 'building-office', 'computer-desktop',
-        'exclamation-triangle', 'paperclip', 'phone',
+        'academic-cap',
+        'add',
+        'add-user',
+        'adjustments-horizontal',
+        'archive-box',
+        'arrow-down',
+        'arrow-down-tray',
+        'arrow-left',
+        'arrow-path',
+        'arrow-right',
+        'arrow-up',
+        'arrow-up-tray',
+        'avatar',
+        'badge',
+        'bars',
+        'bars-down',
+        'bars-up',
+        'bell',
+        'calendar-days',
+        'camera',
+        'chart',
+        'chat-bubble-left',
+        'check',
+        'check-circle',
+        'chevron-down',
+        'chevron-left',
+        'chevron-right',
+        'chevron-up',
+        'chevron-up-down',
+        'cog',
+        'cog-6-tooth',
+        'document',
+        'document-duplicate',
+        'edit',
+        'envelope',
+        'exit',
+        'eye',
+        'finger-print',
+        'folder',
+        'funnel',
+        'globe',
+        'home',
+        'identification',
+        'inbox-arrow-down',
+        'info',
+        'light-bulb',
+        'link',
+        'list',
+        'list-bullet',
+        'magnifying-glass',
+        'mail',
+        'minus',
+        'moon',
+        'photo',
+        'pie',
+        'plus',
+        'search',
+        'tag',
+        'trash',
+        'user',
+        'users',
+        'wrench',
+        'x-mark',
+        'arrow-uturn-down',
+        'book-open',
+        'building-office',
+        'computer-desktop',
+        'exclamation-triangle',
+        'paperclip',
+        'phone',
     ];
 
     $tableRows = collect([
-        ['id' => 1001, 'name' => 'Alice Green', 'email' => 'alice@example.com', 'role' => 'ADMIN', 'status' => 'Active'],
-        ['id' => 1002, 'name' => 'Marcus Reed', 'email' => 'marcus@example.com', 'role' => 'USER', 'status' => 'Active'],
+        [
+            'id' => 1001,
+            'name' => 'Alice Green',
+            'email' => 'alice@example.com',
+            'role' => 'ADMIN',
+            'status' => 'Active',
+        ],
+        [
+            'id' => 1002,
+            'name' => 'Marcus Reed',
+            'email' => 'marcus@example.com',
+            'role' => 'USER',
+            'status' => 'Active',
+        ],
         ['id' => 1003, 'name' => 'Tina Watts', 'email' => 'tina@example.com', 'role' => 'GUEST', 'status' => 'Pending'],
         ['id' => 1004, 'name' => 'Jon Patel', 'email' => 'jon@example.com', 'role' => 'USER', 'status' => 'Suspended'],
         ['id' => 1005, 'name' => 'Sarah Kemp', 'email' => 'sarah@example.com', 'role' => 'ADMIN', 'status' => 'Active'],
     ]);
 
-    $paginator = new LengthAwarePaginator(
-        $tableRows,
-        15,
-        5,
-        1,
-        ['path' => route('ui-demo')]
-    );
+    $paginator = new LengthAwarePaginator($tableRows, 15, 5, 1, ['path' => route('ui-demo')]);
 
     $navbarExample = <<<'BLADE'
-<x-ui::navbar>
-    <x-slot:brand-icon>...</x-slot:brand-icon>
-    <x-slot:brand-title>...</x-slot:brand-title>
+    <x-ui::navbar>
+        <x-slot:brand-icon>...</x-slot:brand-icon>
+        <x-slot:brand-title>...</x-slot:brand-title>
 
-    <x-slot:navigation>
-        <x-ui::navbar.link href="/" icon="home" label="Home" />
-        <x-ui::navbar.dropdown label="Company" icon="folder">
-            <x-ui::navbar.link href="/about" icon="info" label="About" />
-        </x-ui::navbar.dropdown>
-    </x-slot:navigation>
+        <x-slot:navigation>
+            <x-ui::navbar.link href="/" icon="home" label="Home" />
+            <x-ui::navbar.dropdown label="Company" icon="folder">
+                <x-ui::navbar.link href="/about" icon="info" label="About" />
+            </x-ui::navbar.dropdown>
+        </x-slot:navigation>
 
-    <x-slot:user>...</x-slot:user>
-    <x-slot:toolbar>...</x-slot:toolbar>
+        <x-slot:user>...</x-slot:user>
+        <x-slot:toolbar>...</x-slot:toolbar>
 
-    {{ $slot }}
-</x-ui::navbar>
-BLADE;
+        {{ $slot }}
+    </x-ui::navbar>
+    BLADE;
 
     $sidebarExample = <<<'BLADE'
-<x-ui::sidebar>
-    <x-slot:brand-icon>...</x-slot:brand-icon>
-    <x-slot:brand-title>...</x-slot:brand-title>
+    <x-ui::sidebar>
+        <x-slot:brand-icon>...</x-slot:brand-icon>
+        <x-slot:brand-title>...</x-slot:brand-title>
 
-    <x-slot:navigation>
-        <x-ui::sidebar.link href="/" icon="home" label="Dashboard" />
-        <x-ui::sidebar.dropdown label="Resources" icon="folder">
-            <x-ui::sidebar.link href="/docs" icon="document" label="Docs" />
-        </x-ui::sidebar.dropdown>
-    </x-slot:navigation>
+        <x-slot:navigation>
+            <x-ui::sidebar.link href="/" icon="home" label="Dashboard" />
+            <x-ui::sidebar.dropdown label="Resources" icon="folder">
+                <x-ui::sidebar.link href="/docs" icon="document" label="Docs" />
+            </x-ui::sidebar.dropdown>
+        </x-slot:navigation>
 
-    <x-slot:user>...</x-slot:user>
-    <x-slot:toolbar>...</x-slot:toolbar>
+        <x-slot:user>...</x-slot:user>
+        <x-slot:toolbar>...</x-slot:toolbar>
 
-    {{ $slot }}
-</x-ui::sidebar>
-BLADE;
+        {{ $slot }}
+    </x-ui::sidebar>
+    BLADE;
 @endphp
 
 @auth
@@ -94,13 +159,27 @@ BLADE;
             <x-ui::heading level="3">UI Library Demo</x-ui::heading>
         </x-ui::divider>
 
-        <x-ui::hero
-            heading="termon/ui Component Library"
-            subheading="A practical demo of the package components currently installed in this starter kit."
-            class="mb-6"
-        >
-            <span>Blade components developed using <x-ui::link target="_blank" href="https://tailwindcss.com">Tailwind</x-ui::link> and <x-ui::link target="_blank" href="https://alpinejs.dev">AlpineJS</x-ui::link></span>
+        <x-ui::hero heading="termon/ui Component Library"
+            subheading="A practical demo of the package components currently installed in this starter kit." class="mb-6">
+            <span>Blade components developed using <x-ui::link target="_blank"
+                    href="https://tailwindcss.com">Tailwind</x-ui::link> and <x-ui::link target="_blank"
+                    href="https://alpinejs.dev">AlpineJS</x-ui::link></span>
         </x-ui::hero>
+
+        <x-ui::card class="mb-6">
+
+            <div
+                class="divide-y divide-slate-200 overflow-hidden rounded-xl border border-slate-200 dark:divide-slate-700 dark:border-slate-700">
+                <x-ui::resource-row title="Component guide" description="Usage patterns for the current package release."
+                    status="Updated" status-variant="emerald" icon="book-open">
+                    <x-slot:actions>
+                        <x-ui::link :href="route('help')" variant="link">View guide</x-ui::link>
+                    </x-slot:actions>
+                </x-ui::resource-row>
+                <x-ui::resource-row title="UI package" description="Installed through Composer from termon/ui."
+                    :status="$uiVersion" status-variant="sky" icon="archive-box" />
+            </div>
+        </x-ui::card>
 
         <x-ui::tabs active="Introduction">
             <x-ui::tabs.tab name="Introduction">
